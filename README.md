@@ -9,20 +9,21 @@ Usage
 
 If you know what kind of object you expect from a GeoJson file you can directly read it like this:
 
-<code>
+
+<pre><code>
 FeatureCollection featureCollection = new ObjectMapper().readValue(inputStream,FeatureCollection.class);
-</code>
+</code></pre>
 
 If you what to read any GeoJson file read it as GeoJsonObject and then test for the contents via instanceOf:
 
-<code>
+<pre><code>
 GeoJsonObject object = new ObjectMapper().readValue(inputStream,GeoJsonObject.class);
 if (object instanceOf Polygon) {
 	...
 } else if (object instanceOf Feature) {
 	...
 }
-</code>
+</code></pre>
 
 and so on.
 
@@ -31,11 +32,11 @@ Maven Central
 
 You can find the library in the maven central repository.
 
-<code>
+<pre><code>
 	<dependency>
 		<groupId>de.grundid.opendatalab</groupId>
 		<artifactId>geojson-jackson</artifactId>
 		<version>1.0</version>
 	</dependency>
-</code>
+</code></pre>
 		
