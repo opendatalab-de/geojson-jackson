@@ -1,14 +1,14 @@
 package org.geojson;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @JsonTypeInfo(property = "type", use = Id.NAME)
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
@@ -18,8 +18,7 @@ public abstract class GeoJsonObject {
 
 	private Crs crs;
 	private double[] bbox;
-
-  @JsonInclude(Include.NON_EMPTY)
+	@JsonInclude(Include.NON_EMPTY)
 	private Map<String, Object> properties = new HashMap<>();
 
 	public Crs getCrs() {
@@ -37,8 +36,8 @@ public abstract class GeoJsonObject {
 	public void setBbox(double[] bbox) {
 		this.bbox = bbox;
 	}
-	
-  public void setProperty(String key, Object value) {
+
+	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}
 
