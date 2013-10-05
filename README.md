@@ -15,7 +15,7 @@ FeatureCollection featureCollection =
 	new ObjectMapper().readValue(inputStream, FeatureCollection.class);
 ```
 
-If you what to read any GeoJson file read it as GeoJsonObject and then test for the contents via instanceOf:
+If you what to read any GeoJson file read the value as GeoJsonObject and then test for the contents via instanceOf:
 
 ```java
 GeoJsonObject object = new ObjectMapper().readValue(inputStream, GeoJsonObject.class);
@@ -46,7 +46,7 @@ You can find the library in the Maven Central Repository.
 <dependency>
  <groupId>de.grundid.opendatalab</groupId>
  <artifactId>geojson-jackson</artifactId>
- <version>1.0</version>
+ <version>1.1</version>
 </dependency>
 ```
 		
