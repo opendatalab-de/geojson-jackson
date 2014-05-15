@@ -1,9 +1,12 @@
 package org.geojson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 
+	private List<Polygon> polygons = new ArrayList<Polygon>();
+	
 	public MultiPolygon() {
 	}
 
@@ -12,7 +15,13 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 	}
 
 	public MultiPolygon add(Polygon polygon) {
+		polygons.add(polygon);
 		coordinates.add(polygon.getCoordinates());
 		return this;
+	}
+	
+	public List<Polygon> getPolygons()
+	{
+		return this.polygons;
 	}
 }
