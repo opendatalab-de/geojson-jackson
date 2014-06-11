@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FeatureCollection extends GeoJsonObject implements Iterable<Feature> {
 
-	private List<Feature> features = new ArrayList<>();
+	private List<Feature> features = new ArrayList<Feature>();
 
 	public List<Feature> getFeatures() {
 		return features;

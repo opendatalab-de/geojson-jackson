@@ -19,7 +19,7 @@ public abstract class GeoJsonObject {
 	private Crs crs;
 	private double[] bbox;
 	@JsonInclude(Include.NON_EMPTY)
-	private Map<String, Object> properties = new HashMap<>();
+	private Map<String, Object> properties = new HashMap<String, Object>();
 
 	public Crs getCrs() {
 		return crs;
