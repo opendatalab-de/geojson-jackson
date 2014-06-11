@@ -10,7 +10,6 @@ public abstract class Geometry<T> extends GeoJsonObject {
 	public Geometry() {
 	}
 
-	@SafeVarargs
 	public Geometry(T... elements) {
 		for (T coordinate : elements) {
 			coordinates.add(coordinate);

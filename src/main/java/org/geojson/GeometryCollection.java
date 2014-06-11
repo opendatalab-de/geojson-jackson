@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject> {
 
-	private List<GeoJsonObject> geometries = new ArrayList<>();
+	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
 	public List<GeoJsonObject> getGeometries() {
 		return geometries;
