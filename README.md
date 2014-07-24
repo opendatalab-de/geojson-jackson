@@ -46,7 +46,7 @@ You can find the library in the Maven Central Repository.
 <dependency>
  <groupId>de.grundid.opendatalab</groupId>
  <artifactId>geojson-jackson</artifactId>
- <version>1.1</version>
+ <version>1.2</version>
 </dependency>
 ```
 		
