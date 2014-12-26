@@ -53,4 +53,6 @@ public abstract class GeoJsonObject {
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}
+
+    public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
 }

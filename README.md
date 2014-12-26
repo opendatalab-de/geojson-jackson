@@ -25,8 +25,15 @@ if (object instanceOf Polygon) {
 	...
 }
 ```
-
 and so on.
+
+Or you can use the GeoJsonObjectVisitor to visit the right method:
+
+```java
+GeoJsonObject object = new ObjectMapper().readValue(inputStream, GeoJsonObject.class);
+object.accept(visitor);
+```
+
 
 Writing Json is even easier. You just have to create the GeoJson objects and pass them to the Jackson ObjectMapper.
 

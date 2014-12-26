@@ -26,4 +26,9 @@ public class Point extends GeoJsonObject {
 	public void setCoordinates(LngLatAlt coordinates) {
 		this.coordinates = coordinates;
 	}
+
+    @Override
+    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+        return geoJsonObjectVisitor.visit(this);
+    }
 }

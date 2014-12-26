@@ -15,4 +15,9 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 		coordinates.add(polygon.getCoordinates());
 		return this;
 	}
+
+    @Override
+    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+        return geoJsonObjectVisitor.visit(this);
+    }
 }

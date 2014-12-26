@@ -25,4 +25,9 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		geometries.add(geometry);
 		return this;
 	}
+
+    @Override
+    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+        return geoJsonObjectVisitor.visit(this);
+    }
 }
