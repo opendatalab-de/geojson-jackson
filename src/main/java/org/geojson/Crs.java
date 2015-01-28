@@ -19,4 +19,12 @@ public class Crs {
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}
+
+	@Override
+	public String toString() {
+		return "Crs{" +
+			"type='" + type + '\'' +
+			", properties=" + properties +
+			'}';
+	}
 }
