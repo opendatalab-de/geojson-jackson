@@ -1,8 +1,5 @@
 package org.geojson;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -10,9 +7,12 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @JsonTypeInfo(property = "type", use = Id.NAME)
-@JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
-		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class) })
+@JsonSubTypes({@Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
+	@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class)})
 @JsonInclude(Include.NON_NULL)
 public abstract class GeoJsonObject {
 
@@ -43,7 +43,7 @@ public abstract class GeoJsonObject {
 
 	@SuppressWarnings("unchecked")
 	public <T> T getProperty(String key) {
-		return (T)properties.get(key);
+		return (T) properties.get(key);
 	}
 
 	public Map<String, Object> getProperties() {
@@ -52,5 +52,10 @@ public abstract class GeoJsonObject {
 
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
+	}
+
+	@Override
+	public String toString() {
+		return "GeoJsonObject{" + "properties=" + properties + "}";
 	}
 }

@@ -20,4 +20,9 @@ public class Feature extends GeoJsonObject {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "Feature{" + "geometry=" + geometry + ", id='" + id + "'}";
+	}
 }

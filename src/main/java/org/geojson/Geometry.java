@@ -28,4 +28,11 @@ public abstract class Geometry<T> extends GeoJsonObject {
 	public void setCoordinates(List<T> coordinates) {
 		this.coordinates = coordinates;
 	}
+
+	@Override
+	public String toString() {
+		return "Geometry{" +
+			"coordinates=" + coordinates +
+			"} " + super.toString();
+	}
 }

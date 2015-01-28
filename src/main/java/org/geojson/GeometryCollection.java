@@ -25,4 +25,11 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		geometries.add(geometry);
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "GeometryCollection{" +
+			"geometries=" + geometries +
+			"} " + super.toString();
+	}
 }

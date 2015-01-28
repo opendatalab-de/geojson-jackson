@@ -15,4 +15,9 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 		coordinates.add(polygon.getCoordinates());
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "MultiPolygon{} " + super.toString();
+	}
 }

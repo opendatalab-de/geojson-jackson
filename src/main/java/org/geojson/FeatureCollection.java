@@ -30,4 +30,10 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 	public Iterator<Feature> iterator() {
 		return features.iterator();
 	}
+
+	@Override
+	public String toString() {
+		return "FeatureCollection{" + "features=" + features + '}';
+	}
+
 }

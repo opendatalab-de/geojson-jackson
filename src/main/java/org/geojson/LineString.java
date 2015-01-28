@@ -9,4 +9,9 @@ public class LineString extends MultiPoint {
 	public LineString(LngLatAlt... points) {
 		super(points);
 	}
+
+	@Override
+	public String toString() {
+		return "LineString{} " + super.toString();
+	}
 }

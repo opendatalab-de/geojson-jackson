@@ -1,9 +1,9 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Arrays;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Polygon extends Geometry<List<LngLatAlt>> {
 
@@ -52,5 +52,10 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 	private void assertExteriorRing() {
 		if (coordinates.isEmpty())
 			throw new RuntimeException("No exterior ring definied");
+	}
+
+	@Override
+	public String toString() {
+		return "Polygon{} " + super.toString();
 	}
 }
