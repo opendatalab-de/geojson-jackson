@@ -50,4 +50,9 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 	public int hashCode() {
 		return features.hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return "FeatureCollection{" + "features=" + features + '}';
+	}
 }

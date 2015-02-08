@@ -45,4 +45,9 @@ public class Feature extends GeoJsonObject {
 		result = 31 * result + (id != null ? id.hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "Feature{" + "geometry=" + geometry + ", id='" + id + "'}";
+	}
 }

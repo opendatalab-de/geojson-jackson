@@ -80,4 +80,9 @@ public abstract class GeoJsonObject {
 		result = 31 * result + (properties != null ? properties.hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "GeoJsonObject{" + "properties=" + properties + "}";
+	}
 }

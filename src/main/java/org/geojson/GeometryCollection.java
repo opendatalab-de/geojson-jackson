@@ -49,4 +49,9 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		result = 31 * result + (geometries != null ? geometries.hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "GeometryCollection{" + "geometries=" + geometries + "} " + super.toString();
+	}
 }

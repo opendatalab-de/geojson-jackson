@@ -53,4 +53,9 @@ public class Point extends GeoJsonObject {
 		result = 31 * result + (coordinates != null ? coordinates.hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "Point{" + "coordinates=" + coordinates + "} " + super.toString();
+	}
 }
