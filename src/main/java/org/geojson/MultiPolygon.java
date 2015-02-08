@@ -16,8 +16,8 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 		return this;
 	}
 
-    @Override
-    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
-        return geoJsonObjectVisitor.visit(this);
-    }
+	@Override
+	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+		return geoJsonObjectVisitor.visit(this);
+	}
 }

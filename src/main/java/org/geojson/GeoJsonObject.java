@@ -54,5 +54,5 @@ public abstract class GeoJsonObject {
 		this.properties = properties;
 	}
 
-    public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
+	public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
 }

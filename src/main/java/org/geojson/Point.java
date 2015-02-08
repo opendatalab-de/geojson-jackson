@@ -27,8 +27,8 @@ public class Point extends GeoJsonObject {
 		this.coordinates = coordinates;
 	}
 
-    @Override
-    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
-        return geoJsonObjectVisitor.visit(this);
-    }
+	@Override
+	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+		return geoJsonObjectVisitor.visit(this);
+	}
 }

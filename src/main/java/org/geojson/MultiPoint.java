@@ -1,6 +1,5 @@
 package org.geojson;
 
-
 public class MultiPoint extends Geometry<LngLatAlt> {
 
 	public MultiPoint() {
@@ -10,8 +9,8 @@ public class MultiPoint extends Geometry<LngLatAlt> {
 		super(points);
 	}
 
-    @Override
-    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
-        return geoJsonObjectVisitor.visit(this);
-    }
+	@Override
+	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+		return geoJsonObjectVisitor.visit(this);
+	}
 }

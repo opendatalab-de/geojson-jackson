@@ -54,8 +54,8 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 			throw new RuntimeException("No exterior ring definied");
 	}
 
-    @Override
-    public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
-        return geoJsonObjectVisitor.visit(this);
-    }
+	@Override
+	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+		return geoJsonObjectVisitor.visit(this);
+	}
 }

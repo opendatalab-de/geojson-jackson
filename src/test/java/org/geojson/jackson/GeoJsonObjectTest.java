@@ -13,12 +13,12 @@ public class GeoJsonObjectTest {
 	private ObjectMapper mapper = new ObjectMapper();
 
 	private class TestGeoJsonObject extends GeoJsonObject {
-        @Override
-        public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
-            // TODO ?
-            return null;
-        }
-    }
+
+		@Override
+		public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
+			throw new RuntimeException("not implemented");
+		}
+	}
 
 	@Test
 	public void itShouldHaveProperties() throws Exception {
