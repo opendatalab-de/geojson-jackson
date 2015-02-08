@@ -1,5 +1,6 @@
 package org.geojson;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,4 +56,28 @@ public abstract class GeoJsonObject {
 	}
 
 	public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof GeoJsonObject))
+			return false;
+		GeoJsonObject that = (GeoJsonObject)o;
+		if (!Arrays.equals(bbox, that.bbox)) {
+			return false;
+		}
+		if (crs != null ? !crs.equals(that.crs) : that.crs != null) {
+			return false;
+		}
+		return !(properties != null ? !properties.equals(that.properties) : that.properties != null);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = crs != null ? crs.hashCode() : 0;
+		result = 31 * result + (bbox != null ? Arrays.hashCode(bbox) : 0);
+		result = 31 * result + (properties != null ? properties.hashCode() : 0);
+		return result;
+	}
 }

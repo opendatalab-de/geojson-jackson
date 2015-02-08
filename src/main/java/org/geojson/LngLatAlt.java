@@ -1,10 +1,9 @@
 package org.geojson;
 
-import org.geojson.jackson.LngLatAltDeserializer;
-import org.geojson.jackson.LngLatAltSerializer;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.geojson.jackson.LngLatAltDeserializer;
+import org.geojson.jackson.LngLatAltSerializer;
 
 @JsonDeserialize(using = LngLatAltDeserializer.class)
 @JsonSerialize(using = LngLatAltSerializer.class)
@@ -54,5 +53,30 @@ public class LngLatAlt {
 
 	public void setAltitude(double altitude) {
 		this.altitude = altitude;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof LngLatAlt)) {
+			return false;
+		}
+
+		LngLatAlt lngLatAlt = (LngLatAlt) o;
+
+		return Double.compare(lngLatAlt.latitude, latitude) == 0 && Double.compare(lngLatAlt.longitude, longitude) == 0 && Double.compare(lngLatAlt.altitude, altitude) == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		long temp = Double.doubleToLongBits(longitude);
+		int result = (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(latitude);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(altitude);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		return result;
 	}
 }

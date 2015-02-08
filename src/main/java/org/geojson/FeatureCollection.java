@@ -35,4 +35,19 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 		return geoJsonObjectVisitor.visit(this);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof FeatureCollection))
+			return false;
+		FeatureCollection features1 = (FeatureCollection)o;
+		return features.equals(features1.features);
+	}
+
+	@Override
+	public int hashCode() {
+		return features.hashCode();
+	}
 }
