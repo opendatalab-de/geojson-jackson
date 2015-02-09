@@ -9,7 +9,7 @@
 	
 	<groupId>de.grundid.opendatalab</groupId>
 	<artifactId>geojson-jackson</artifactId>
-	<version>1.3-SNAPSHOT</version>
+	<version>1.3</version>
 	<packaging>jar</packaging>
 
 
@@ -20,7 +20,8 @@
 	<scm>
 		<connection>scm:git:git://github.com/opendatalab-de/geojson-jackson.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:/opendatalab-de/geojson-jackson.git</developerConnection>
-	</scm>
+	  <tag>geojson-jackson-1.3</tag>
+  </scm>
 
 	<licenses>
 		<license>
