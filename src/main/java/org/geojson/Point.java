@@ -1,5 +1,7 @@
 package org.geojson;
 
+import java.util.List;
+
 public class Point extends GeoJsonObject {
 
 	private LngLatAlt coordinates;
@@ -58,4 +60,11 @@ public class Point extends GeoJsonObject {
 	public String toString() {
 		return "Point{" + "coordinates=" + coordinates + "} " + super.toString();
 	}
+
+    public String toWKT() {
+        if (coordinates != null) {
+            return "POINT(" + coordinates.getLongitude() + " " + coordinates.getLatitude() + ")";
+        }
+        return null;
+    }
 }

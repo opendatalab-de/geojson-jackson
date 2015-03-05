@@ -1,5 +1,7 @@
 package org.geojson;
 
+import java.util.List;
+
 public class MultiPoint extends Geometry<LngLatAlt> {
 
 	public MultiPoint() {
@@ -18,4 +20,11 @@ public class MultiPoint extends Geometry<LngLatAlt> {
 	public String toString() {
 		return "MultiPoint{} " + super.toString();
 	}
+
+    public String toWKT() {
+        if (coordinates != null && coordinates.size() > 0) {
+            return "MULTIPOINT("+ toWKT(coordinates) +  ")";
+        }
+        return null;
+    }
 }

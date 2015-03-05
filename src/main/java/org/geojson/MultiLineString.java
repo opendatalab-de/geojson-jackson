@@ -20,4 +20,22 @@ public class MultiLineString extends Geometry<List<LngLatAlt>> {
 	public String toString() {
 		return "MultiLineString{} " + super.toString();
 	}
+
+    public String toWKT() {
+        if (coordinates != null && coordinates.size() > 0) {
+            String wkt = "MULTILINESTRING(";
+            boolean first = true;
+            for (List<LngLatAlt> line : coordinates) {
+                if (first) {
+                    first = false;
+                } else {
+                    wkt += ",";
+                }
+                wkt += "(" + toWKT(line) + ")";
+            }
+            wkt += ")";
+            return wkt;
+        }
+        return null;
+    }
 }
