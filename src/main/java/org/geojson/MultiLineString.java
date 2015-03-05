@@ -36,6 +36,6 @@ public class MultiLineString extends Geometry<List<LngLatAlt>> {
             wkt += ")";
             return wkt;
         }
-        return null;
+        return "";
     }
 }

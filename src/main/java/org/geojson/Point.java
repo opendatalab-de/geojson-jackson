@@ -65,6 +65,6 @@ public class Point extends GeoJsonObject {
         if (coordinates != null) {
             return "POINT(" + coordinates.getLongitude() + " " + coordinates.getLatitude() + ")";
         }
-        return null;
+        return "";
     }
 }

@@ -25,6 +25,6 @@ public class LineString extends MultiPoint {
         if (coordinates != null && coordinates.size() > 0) {
             return "LINESTRING(" + toWKT(coordinates) + ")";
         }
-        return null;
+        return "";
     }
 }

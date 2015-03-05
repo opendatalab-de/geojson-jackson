@@ -25,6 +25,6 @@ public class MultiPoint extends Geometry<LngLatAlt> {
         if (coordinates != null && coordinates.size() > 0) {
             return "MULTIPOINT("+ toWKT(coordinates) +  ")";
         }
-        return null;
+        return "";
     }
 }

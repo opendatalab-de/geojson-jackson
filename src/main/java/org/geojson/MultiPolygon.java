@@ -51,6 +51,6 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
             wkt += ")";
             return wkt;
         }
-        return null;
+        return "";
     }
 }
