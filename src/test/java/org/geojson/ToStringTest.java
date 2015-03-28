@@ -27,7 +27,7 @@ public class ToStringTest {
 	public void itShouldToStringPoint() throws Exception {
 		Point geometry = new Point(10, 20);
 		assertEquals(
-				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}} GeoJsonObject{properties={}}",
+				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}} GeoJsonObject{properties={}}",
 				geometry.toString());
 	}
 
@@ -36,9 +36,9 @@ public class ToStringTest {
 		Polygon geometry = new Polygon(new LngLatAlt(10, 20), new LngLatAlt(30, 40), new LngLatAlt(10, 40),
 				new LngLatAlt(10, 20));
 		assertEquals(
-				"Polygon{} Geometry{coordinates=[[LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}, "
-						+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}, LngLatAlt{longitude=10.0, latitude=40.0, altitude=NaN}, "
-						+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}]]} GeoJsonObject{properties={}}",
+				"Polygon{} Geometry{coordinates=[[LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}, "
+						+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=null}, LngLatAlt{longitude=10.0, latitude=40.0, altitude=null}, "
+						+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}]]} GeoJsonObject{properties={}}",
 				geometry.toString());
 	}
 
@@ -48,14 +48,14 @@ public class ToStringTest {
 				new LngLatAlt(10, 40), new LngLatAlt(10, 20)));
 		geometry.add(new Polygon(new LngLatAlt(5, 20), new LngLatAlt(30, 40), new LngLatAlt(10, 40), new LngLatAlt(5,
 				20)));
-		assertEquals("MultiPolygon{} Geometry{coordinates=[[[LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=10.0, latitude=40.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}]], "
-				+ "[[LngLatAlt{longitude=5.0, latitude=20.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=10.0, latitude=40.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=5.0, latitude=20.0, altitude=NaN}]]]} GeoJsonObject{properties={}}",
+		assertEquals("MultiPolygon{} Geometry{coordinates=[[[LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}, "
+				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=null}, "
+				+ "LngLatAlt{longitude=10.0, latitude=40.0, altitude=null}, "
+				+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}]], "
+				+ "[[LngLatAlt{longitude=5.0, latitude=20.0, altitude=null}, "
+				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=null}, "
+				+ "LngLatAlt{longitude=10.0, latitude=40.0, altitude=null}, "
+				+ "LngLatAlt{longitude=5.0, latitude=20.0, altitude=null}]]]} GeoJsonObject{properties={}}",
 				geometry.toString());
 	}
 
@@ -63,8 +63,8 @@ public class ToStringTest {
 	public void itShouldToStringLineString() throws Exception {
 		LineString geometry = new LineString(new LngLatAlt(49, 9), new LngLatAlt(41, 1));
 		assertEquals("LineString{} MultiPoint{} Geometry{coordinates=["
-				+ "LngLatAlt{longitude=49.0, latitude=9.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=NaN}]} GeoJsonObject{properties={}}",
+				+ "LngLatAlt{longitude=49.0, latitude=9.0, altitude=null}, "
+				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=null}]} GeoJsonObject{properties={}}",
 				geometry.toString());
 	}
 
@@ -72,10 +72,10 @@ public class ToStringTest {
 	public void itShouldToStringMultiLineString() throws Exception {
 		MultiLineString geometry = new MultiLineString(Arrays.asList(new LngLatAlt(49, 9), new LngLatAlt(41, 1)));
 		geometry.add(Arrays.asList(new LngLatAlt(10, 20), new LngLatAlt(30, 40)));
-		assertEquals("MultiLineString{} Geometry{coordinates=[[LngLatAlt{longitude=49.0, latitude=9.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=NaN}], "
-				+ "[LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}]]} GeoJsonObject{properties={}}",
+		assertEquals("MultiLineString{} Geometry{coordinates=[[LngLatAlt{longitude=49.0, latitude=9.0, altitude=null}, "
+				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=null}], "
+				+ "[LngLatAlt{longitude=10.0, latitude=20.0, altitude=null}, "
+				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=null}]]} GeoJsonObject{properties={}}",
 				geometry.toString());
 	}
 }

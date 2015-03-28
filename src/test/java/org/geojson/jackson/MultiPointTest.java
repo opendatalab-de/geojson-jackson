@@ -2,6 +2,7 @@ package org.geojson.jackson;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.geojson.LngLatAlt;
@@ -27,7 +28,7 @@ public class MultiPointTest {
 				MultiPoint.class);
 		assertNotNull(multiPoint);
 		List<LngLatAlt> coordinates = multiPoint.getCoordinates();
-		PointTest.assertLngLatAlt(100, 0, Double.NaN, coordinates.get(0));
-		PointTest.assertLngLatAlt(101, 1, Double.NaN, coordinates.get(1));
+		PointTest.assertLngLatAlt(new BigDecimal("100.0"), new BigDecimal("0.0"), null, coordinates.get(0));
+		PointTest.assertLngLatAlt(new BigDecimal("101.0"), new BigDecimal("1.0"), null, coordinates.get(1));
 	}
 }

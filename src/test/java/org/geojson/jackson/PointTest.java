@@ -2,6 +2,8 @@ package org.geojson.jackson;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
@@ -25,17 +27,20 @@ public class PointTest {
 		assertNotNull(value);
 		assertTrue(value instanceof Point);
 		Point point = (Point)value;
-		assertLngLatAlt(100, 5, Double.NaN, point.getCoordinates());
+		assertLngLatAlt(new BigDecimal("100.0"), new BigDecimal("5.0"), null, point.getCoordinates());
 	}
 
-	public static void assertLngLatAlt(double expectedLongitue, double expectedLatitude, double expectedAltitude,
+	public static void assertLngLatAlt(BigDecimal expectedLongitue, BigDecimal expectedLatitude, BigDecimal expectedAltitude,
 			LngLatAlt point) {
-		assertEquals(expectedLongitue, point.getLongitude(), 0.00001);
-		assertEquals(expectedLatitude, point.getLatitude(), 0.00001);
-		if (Double.isNaN(expectedAltitude))
+		//assertEquals(expectedLongitue, point.getLongitude(), 0.00001);
+		assertEquals(expectedLongitue, point.getLongitude());
+		//assertEquals(expectedLatitude, point.getLatitude(), 0.00001);
+		assertEquals(expectedLatitude, point.getLatitude());
+		if (expectedAltitude == null)
 			assertFalse(point.hasAltitude());
 		else
-			assertEquals(expectedAltitude, point.getAltitude(), 0.00001);
+			//assertEquals(expectedAltitude, point.getAltitude(), 0.00001);
+		   assertEquals(expectedAltitude, point.getAltitude());
 	}
 
 	@Test
@@ -43,7 +48,7 @@ public class PointTest {
 		GeoJsonObject value = mapper.readValue("{\"type\":\"Point\",\"coordinates\":[100.0,5.0,123]}",
 				GeoJsonObject.class);
 		Point point = (Point)value;
-		assertLngLatAlt(100, 5, 123, point.getCoordinates());
+		assertLngLatAlt(new BigDecimal("100.0"), new BigDecimal("5.0"), new BigDecimal("123.0"), point.getCoordinates());
 	}
 
 	@Test
