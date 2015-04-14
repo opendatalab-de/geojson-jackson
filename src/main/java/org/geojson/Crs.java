@@ -4,10 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Crs {
+	
+	public enum CrsType{
+		namedCrs("name"),
+		linkedCrs("link");
+		
+		public final String type;
+		
+		CrsType(String value){
+			this.type = value;
+		}
+	}
 
-	private String type = "name";
+	private String type;
 	private Map<String, Object> properties = new HashMap<String, Object>();
-
+	
+	public Crs(CrsType crsType){
+		this.type = crsType.type;
+	}
+	
 	public String getType() {
 		return type;
 	}
