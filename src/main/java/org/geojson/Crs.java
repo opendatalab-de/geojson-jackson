@@ -19,12 +19,12 @@ public class Crs {
 	private String type;
 	private Map<String, Object> properties = new HashMap<String, Object>();
 	
-	public Crs(CrsType crsType){
-		this.type = crsType.type;
-	}
-	
 	public String getType() {
 		return type;
+	}
+	
+	public void setType(CrsType crsType){
+		this.type = crsType.type
 	}
 
 	public Map<String, Object> getProperties() {
