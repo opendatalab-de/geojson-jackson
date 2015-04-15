@@ -3,6 +3,9 @@ package org.geojson;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Crs {
 	
 	public enum CrsType{
@@ -14,10 +17,32 @@ public class Crs {
 		CrsType(String value){
 			this.type = value;
 		}
+		
+		public static CrsType getType(String crsString){
+	    		for(CrsType crsType : CrsType.values()){
+	    		    if( crsType.type.equals(crsString)){
+	    			return crsType;
+	    		    }
+	    		}
+	    		throw new RuntimeException("The requested Crs type " + crsString +" do not match any CrsType");
+    	    	}
 	}
 
-	private String type;
+	private final String type;
 	private Map<String, Object> properties = new HashMap<String, Object>();
+	
+	public Crs(){//backward compatibility, the default constructor returned a named Crs.
+	    this(CrsType.namedCrs);
+	}
+	
+	public Crs(CrsType crsType){
+	    this.type = crsType.type;
+	}
+	
+	@JsonCreator
+	public Crs(@JsonProperty("type")String crsTypeString){
+	    this(CrsType.getType(crsTypeString));
+	}
 	
 	public String getType() {
 		return type;
