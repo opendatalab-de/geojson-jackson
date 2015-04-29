@@ -1,5 +1,7 @@
 package org.geojson;
 
+import java.io.Serializable;
+
 import org.geojson.jackson.LngLatAltDeserializer;
 import org.geojson.jackson.LngLatAltSerializer;
 
@@ -8,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonDeserialize(using = LngLatAltDeserializer.class)
 @JsonSerialize(using = LngLatAltSerializer.class)
-public class LngLatAlt {
+public class LngLatAlt implements Serializable{
 
 	private double longitude;
 	private double latitude;
