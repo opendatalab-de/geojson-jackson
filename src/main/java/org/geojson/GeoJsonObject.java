@@ -1,5 +1,10 @@
 package org.geojson;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -15,7 +20,7 @@ import java.util.Map;
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
 		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class) })
 @JsonInclude(Include.NON_NULL)
-public abstract class GeoJsonObject {
+public abstract class GeoJsonObject implements Serializable{
 
 	private Crs crs;
 	private double[] bbox;

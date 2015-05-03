@@ -2,10 +2,11 @@ package org.geojson;
 
 import org.geojson.jackson.CrsType;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Crs {
+public class Crs implements Serializable{
 
 	private CrsType type = CrsType.name;
 	private Map<String, Object> properties = new HashMap<String, Object>();
