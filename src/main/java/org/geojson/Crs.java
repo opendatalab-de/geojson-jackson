@@ -1,15 +1,21 @@
 package org.geojson;
 
+import org.geojson.jackson.CrsType;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Crs {
 
-	private String type = "name";
+	private CrsType type = CrsType.name;
 	private Map<String, Object> properties = new HashMap<String, Object>();
 
-	public String getType() {
+	public CrsType getType() {
 		return type;
+	}
+
+	public void setType(CrsType type) {
+		this.type = type;
 	}
 
 	public Map<String, Object> getProperties() {
