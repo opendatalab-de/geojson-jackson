@@ -1,13 +1,12 @@
 package org.geojson.jackson;
 
-import static org.junit.Assert.*;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.geojson.MultiPolygon;
 import org.geojson.Polygon;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.Assert.assertEquals;
 
 public class MultiPoligonTest {
 
@@ -22,7 +21,7 @@ public class MultiPoligonTest {
 		polygon.addInteriorRing(MockData.INTERNAL);
 		multiPolygon.add(polygon);
 		assertEquals(
-				"{\"type\":\"MultiPolygon\",\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
+				"{\"type\":\"MultiPolygon\",\"properties\":{},\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
 						+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
 						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]]}",
 				mapper.writeValueAsString(multiPolygon));
@@ -31,7 +30,7 @@ public class MultiPoligonTest {
 	@Test
 	public void itShouldDeserialize() throws Exception {
 		MultiPolygon multiPolygon = mapper.readValue(
-				"{\"type\":\"MultiPolygon\",\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
+				"{\"type\":\"MultiPolygon\",\"properties\":{},\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]],"
 						+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
 						+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]]}", MultiPolygon.class);
 		assertEquals(2, multiPolygon.getCoordinates().size());

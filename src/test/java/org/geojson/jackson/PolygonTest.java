@@ -1,14 +1,13 @@
 package org.geojson.jackson;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class PolygonTest {
 
@@ -17,7 +16,7 @@ public class PolygonTest {
 	@Test
 	public void itShouldSerialize() throws Exception {
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
-		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
+		assertEquals("{\"type\":\"Polygon\",\"properties\":{},\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]]}",
 				mapper.writeValueAsString(polygon));
 	}
@@ -26,7 +25,7 @@ public class PolygonTest {
 	public void itShouldSerializeWithHole() throws Exception {
 		Polygon polygon = new Polygon(MockData.EXTERNAL);
 		polygon.addInteriorRing(MockData.INTERNAL);
-		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
+		assertEquals("{\"type\":\"Polygon\",\"properties\":{},\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]],"
 				+ "[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]}", mapper.writeValueAsString(polygon));
 	}
