@@ -1,7 +1,10 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Feature extends GeoJsonObject {
 
+	@JsonInclude(JsonInclude.Include.ALWAYS)
 	private GeoJsonObject geometry;
 	private String id;
 
