@@ -1,9 +1,10 @@
 package org.geojson;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Crs {
+public class Crs implements Serializable{
 
 	private String type = "name";
 	private Map<String, Object> properties = new HashMap<String, Object>();
