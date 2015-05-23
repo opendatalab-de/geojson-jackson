@@ -1,10 +1,10 @@
 package org.geojson;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class ToStringTest {
 
@@ -15,7 +15,7 @@ public class ToStringTest {
 
 	@Test
 	public void itShouldToStringFeature() throws Exception {
-		assertEquals("Feature{geometry=null, id='null'}", new Feature().toString());
+		assertEquals("Feature{properties={}, geometry=null, id='null'}", new Feature().toString());
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class ToStringTest {
 	public void itShouldToStringPoint() throws Exception {
 		Point geometry = new Point(10, 20);
 		assertEquals(
-				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}} GeoJsonObject{properties={}}",
+				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -38,7 +38,7 @@ public class ToStringTest {
 		assertEquals(
 				"Polygon{} Geometry{coordinates=[[LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}, "
 						+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}, LngLatAlt{longitude=10.0, latitude=40.0, altitude=NaN}, "
-						+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}]]} GeoJsonObject{properties={}}",
+						+ "LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}]]} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -55,7 +55,7 @@ public class ToStringTest {
 				+ "[[LngLatAlt{longitude=5.0, latitude=20.0, altitude=NaN}, "
 				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}, "
 				+ "LngLatAlt{longitude=10.0, latitude=40.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=5.0, latitude=20.0, altitude=NaN}]]]} GeoJsonObject{properties={}}",
+						+ "LngLatAlt{longitude=5.0, latitude=20.0, altitude=NaN}]]]} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -64,7 +64,7 @@ public class ToStringTest {
 		LineString geometry = new LineString(new LngLatAlt(49, 9), new LngLatAlt(41, 1));
 		assertEquals("LineString{} MultiPoint{} Geometry{coordinates=["
 				+ "LngLatAlt{longitude=49.0, latitude=9.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=NaN}]} GeoJsonObject{properties={}}",
+						+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=NaN}]} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -75,7 +75,7 @@ public class ToStringTest {
 		assertEquals("MultiLineString{} Geometry{coordinates=[[LngLatAlt{longitude=49.0, latitude=9.0, altitude=NaN}, "
 				+ "LngLatAlt{longitude=41.0, latitude=1.0, altitude=NaN}], "
 				+ "[LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}, "
-				+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}]]} GeoJsonObject{properties={}}",
+						+ "LngLatAlt{longitude=30.0, latitude=40.0, altitude=NaN}]]} GeoJsonObject{}",
 				geometry.toString());
 	}
 }

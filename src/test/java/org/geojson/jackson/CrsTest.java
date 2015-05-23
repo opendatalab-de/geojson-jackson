@@ -29,6 +29,6 @@ public class CrsTest {
 		crs.setType(CrsType.link);
 		point.setCrs(crs);
 		String value = mapper.writeValueAsString(point);
-		assertEquals("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":{}},\"properties\":{}}", value);
+		assertEquals("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":{}}}", value);
 	}
 }

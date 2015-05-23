@@ -17,14 +17,14 @@ public class MultiPointTest {
 	@Test
 	public void itShouldSerializeMultiPoint() throws Exception {
 		MultiPoint multiPoint = new MultiPoint(new LngLatAlt(100, 0), new LngLatAlt(101, 1));
-		assertEquals("{\"type\":\"MultiPoint\",\"properties\":{},\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
+		assertEquals("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
 				mapper.writeValueAsString(multiPoint));
 	}
 
 	@Test
 	public void itShouldDeserializeMultiPoint() throws Exception {
 		MultiPoint multiPoint = mapper
-				.readValue("{\"type\":\"MultiPoint\",\"properties\":{},\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
+				.readValue("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
 				MultiPoint.class);
 		assertNotNull(multiPoint);
 		List<LngLatAlt> coordinates = multiPoint.getCoordinates();

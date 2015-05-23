@@ -25,14 +25,14 @@ public class PointTest {
 	@Test
 	public void itShouldSerializeAPoint() throws Exception {
 		Point point = new Point(100, 0);
-		assertEquals("{\"type\":\"Point\",\"properties\":{},\"coordinates\":[100.0,0.0]}",
+		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0]}",
 				mapper.writeValueAsString(point));
 	}
 
 	@Test
 	public void itShouldDeserializeAPoint() throws Exception {
 		GeoJsonObject value = mapper
-				.readValue("{\"type\":\"Point\",\"properties\":{},\"coordinates\":[100.0,5.0]}", GeoJsonObject.class);
+				.readValue("{\"type\":\"Point\",\"coordinates\":[100.0,5.0]}", GeoJsonObject.class);
 		assertNotNull(value);
 		assertTrue(value instanceof Point);
 		Point point = (Point)value;
@@ -41,7 +41,7 @@ public class PointTest {
 
 	@Test
 	public void itShouldDeserializeAPointWithAltitude() throws Exception {
-		GeoJsonObject value = mapper.readValue("{\"type\":\"Point\",\"properties\":{},\"coordinates\":[100.0,5.0,123]}",
+		GeoJsonObject value = mapper.readValue("{\"type\":\"Point\",\"coordinates\":[100.0,5.0,123]}",
 				GeoJsonObject.class);
 		Point point = (Point)value;
 		assertLngLatAlt(100, 5, 123, point.getCoordinates());
@@ -50,7 +50,7 @@ public class PointTest {
 	@Test
 	public void itShouldSerializeAPointWithAltitude() throws Exception {
 		Point point = new Point(100, 0, 256);
-		assertEquals("{\"type\":\"Point\",\"properties\":{},\"coordinates\":[100.0,0.0,256.0]}",
+		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0]}",
 				mapper.writeValueAsString(point));
 	}
 }
