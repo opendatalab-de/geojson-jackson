@@ -12,7 +12,8 @@ import java.util.Arrays;
 
 @JsonTypeInfo(property = "type", use = Id.NAME)
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
-		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class) })
+		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class),
+                @Type(GeometryCollection.class) })
 @JsonInclude(Include.NON_NULL)
 public abstract class GeoJsonObject implements Serializable {
 
