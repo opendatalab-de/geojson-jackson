@@ -1,24 +1,17 @@
 package org.geojson;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 @RunWith(Parameterized.class)
 public class GeoJsonObjectVisitorTest {
 
-	@Parameterized.Parameters
-	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][] { { new GeometryCollection() }, { new FeatureCollection() },
-				{ new Point(12D, 13D) }, { new Feature() },
-				{ new MultiLineString(Arrays.asList(new LngLatAlt(12D, 13D))) }, { new Polygon() },
-				{ new MultiPolygon() }, { new MultiPoint() }, { new LineString() } });
-	}
-
+	private final GeoJsonObject geoJsonObject;
 	private GeoJsonObjectVisitor<GeoJsonObject> instance = new GeoJsonObjectVisitor<GeoJsonObject>() {
 
 		@Override
@@ -75,10 +68,16 @@ public class GeoJsonObjectVisitorTest {
 			return geoJsonObject;
 		}
 	};
-	private final GeoJsonObject geoJsonObject;
-
 	public GeoJsonObjectVisitorTest(GeoJsonObject geoJsonObject) {
 		this.geoJsonObject = geoJsonObject;
+	}
+
+	@Parameterized.Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(new Object[][] { { new GeometryCollection() }, { new FeatureCollection() },
+				{ new Point(12D, 13D) }, { new Feature() },
+				{ new MultiLineString(Arrays.asList(new LngLatAlt(12D, 13D))) }, { new Polygon() },
+				{ new MultiPolygon() }, { new MultiPoint() }, { new LineString() } });
 	}
 
 	@Test
@@ -87,5 +86,10 @@ public class GeoJsonObjectVisitorTest {
 		GeoJsonObject result = geoJsonObject.accept(this.instance);
 		// Then
 		Assert.assertEquals(geoJsonObject, result);
+	}
+
+	@Test
+	public void itShouldAdapter() throws Exception {
+		Assert.assertNull(geoJsonObject.accept(new GeoJsonObjectVisitor.Adapter<Void>()));
 	}
 }
