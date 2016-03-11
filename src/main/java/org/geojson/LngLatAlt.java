@@ -45,11 +45,8 @@ public class LngLatAlt implements Serializable{
 		this.latitude = latitude;
 		this.altitude = altitude;
 
-		if (additionalElements != null ) {
-			this.additionalElements = additionalElements;
-		} else {
-			this.additionalElements = new double[0];
-		}
+		setAdditionalElements(additionalElements);
+		checkAltitudeAndAdditionalElements();
 	}
 
 	public boolean hasAltitude() {
@@ -82,6 +79,7 @@ public class LngLatAlt implements Serializable{
 
 	public void setAltitude(double altitude) {
 		this.altitude = altitude;
+		checkAltitudeAndAdditionalElements();
 	}
 
 	public double[] getAdditionalElements() {
@@ -94,6 +92,17 @@ public class LngLatAlt implements Serializable{
 		} else {
 			this.additionalElements = new double[0];
 		}
+
+		for(double element : this.additionalElements) {
+			if (Double.isNaN(element)) {
+				throw new IllegalArgumentException("No additional elements may be NaN.");
+			}
+			if (Double.isInfinite(element)) {
+				throw new IllegalArgumentException("No additional elements may be infinite.");
+			}
+		}
+
+		checkAltitudeAndAdditionalElements();
 	}
 
 	@Override
@@ -145,5 +154,11 @@ public class LngLatAlt implements Serializable{
 		s += '}';
 
 		return s;
+	}
+
+	private void checkAltitudeAndAdditionalElements() {
+		if (!hasAltitude() && hasAdditionalElements()) {
+			throw new IllegalArgumentException("Additional Elements are only valid if Altitude is also provided.");
+		}
 	}
 }
