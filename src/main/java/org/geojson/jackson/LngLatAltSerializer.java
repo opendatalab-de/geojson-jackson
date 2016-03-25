@@ -49,8 +49,13 @@ public class LngLatAltSerializer extends JsonSerializer<LngLatAlt> {
 		jgen.writeStartArray();
 		jgen.writeNumber(fastDoubleToString(value.getLongitude(), 9));
 		jgen.writeNumber(fastDoubleToString(value.getLatitude(), 9));
-		if (value.hasAltitude())
+		if (value.hasAltitude()) {
 			jgen.writeNumber(value.getAltitude());
+
+			for(double d : value.getAdditionalElements()) {
+				jgen.writeNumber(d);
+			}
+		}
 		jgen.writeEndArray();
 	}
 }

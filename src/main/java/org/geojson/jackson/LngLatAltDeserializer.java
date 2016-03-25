@@ -1,6 +1,8 @@
 package org.geojson.jackson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.geojson.LngLatAlt;
 
@@ -28,8 +30,21 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
 		node.setLongitude(extractDouble(jp, ctxt, false));
 		node.setLatitude(extractDouble(jp, ctxt, false));
 		node.setAltitude(extractDouble(jp, ctxt, true));
-		if (jp.hasCurrentToken() && jp.getCurrentToken() != JsonToken.END_ARRAY)
-			jp.nextToken();
+
+		List<Double> additionalElementsList = new ArrayList<Double>();
+		while (jp.hasCurrentToken() && jp.getCurrentToken() != JsonToken.END_ARRAY) {
+			double element = extractDouble(jp, ctxt, true);
+			if (!Double.isNaN(element)) {
+				additionalElementsList.add(element);
+			}
+		}
+
+		double[] additionalElements = new double[additionalElementsList.size()];
+		for(int i = 0; i < additionalElements.length; i++) {
+			additionalElements[i] = additionalElementsList.get(i);
+		}
+		node.setAdditionalElements(additionalElements);
+
 		return node;
 	}
 

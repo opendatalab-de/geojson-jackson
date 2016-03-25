@@ -19,6 +19,10 @@ public class Point extends GeoJsonObject {
 		coordinates = new LngLatAlt(longitude, latitude, altitude);
 	}
 
+	public Point(double longitude, double latitude, double altitude, double... additionalElements) {
+		coordinates = new LngLatAlt(longitude, latitude, altitude, additionalElements);
+	}
+
 	public LngLatAlt getCoordinates() {
 		return coordinates;
 	}

@@ -32,6 +32,22 @@ public class ToStringTest {
 	}
 
 	@Test
+	public void itShouldToStringPointWithAdditionalElements() {
+		Point geometry = new Point(10, 20, 30, 40D, 50D);
+		assertEquals(
+				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
+				geometry.toString());
+	}
+
+	@Test
+	public void itShouldToStringPointWithAdditionalElementsAndIgnoreNulls() {
+		Point geometry = new Point(10, 20, 30, 40D, 50D);
+		assertEquals(
+				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
+				geometry.toString());
+	}
+
+	@Test
 	public void itShouldToStringPolygon() throws Exception {
 		Polygon geometry = new Polygon(new LngLatAlt(10, 20), new LngLatAlt(30, 40), new LngLatAlt(10, 40),
 				new LngLatAlt(10, 20));
