@@ -5,44 +5,32 @@ import java.util.List;
 
 public abstract class Geometry<T> extends GeoJsonObject {
 
-	protected List<T> coordinates = new ArrayList<T>();
+	public List<T> coordinates;
 
-	public Geometry() {
-	}
+	public Geometry() { }
 
 	public Geometry(T... elements) {
 		for (T coordinate : elements) {
-			coordinates.add(coordinate);
+			add(coordinate);
 		}
 	}
 
 	public Geometry<T> add(T elements) {
+		if (coordinates == null) coordinates = new ArrayList<T>();
 		coordinates.add(elements);
 		return this;
 	}
 
-	public List<T> getCoordinates() {
-		return coordinates;
-	}
-
-	public void setCoordinates(List<T> coordinates) {
-		this.coordinates = coordinates;
-	}
-
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Geometry)) {
-			return false;
-		}
-		if (!super.equals(o)) {
-			return false;
-		}
-		Geometry geometry = (Geometry)o;
-		return !(coordinates != null ? !coordinates.equals(geometry.coordinates) : geometry.coordinates != null);
+		if (this == o) return true;
+		if (!(o instanceof Geometry)) return false;
+		if (!super.equals(o)) return false;
+
+		Geometry<?> geometry = (Geometry<?>) o;
+
+		return coordinates != null ? coordinates.equals(geometry.coordinates) : geometry.coordinates == null;
+
 	}
 
 	@Override

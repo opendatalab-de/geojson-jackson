@@ -1,7 +1,7 @@
-GeoJson POJOs for Jackson
-=========================
+GeoJson DTOs for Jackson
+========================
 
-A small package of all GeoJson POJOs (Plain Old Java Objects) for serializing and 
+A small package of all GeoJson DTOs (Data Transfer Objects) for serializing and 
 deserializing of objects via JSON Jackson Parser.
 
 Usage
@@ -47,7 +47,7 @@ String json= new ObjectMapper().writeValueAsString(featureCollection);
 Maven Central
 -------------
 
-You can find the library in the Maven Central Repository.
+You can find the library in the Maven Central Repository. (*Not released yet*)
 
 ```xml
 <dependency>

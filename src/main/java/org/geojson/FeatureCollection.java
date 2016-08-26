@@ -2,33 +2,25 @@ package org.geojson;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
-public class FeatureCollection extends GeoJsonObject implements Iterable<Feature> {
+public class FeatureCollection extends GeoJsonObject {
 
-	private List<Feature> features = new ArrayList<Feature>();
-
-	public List<Feature> getFeatures() {
-		return features;
-	}
-
-	public void setFeatures(List<Feature> features) {
-		this.features = features;
-	}
+	public List<Feature> features;
 
 	public FeatureCollection add(Feature feature) {
+		initFeatures();
 		features.add(feature);
 		return this;
 	}
 
-	public void addAll(Collection<Feature> features) {
-		this.features.addAll(features);
+	private void initFeatures() {
+		if(features == null) features = new ArrayList<Feature>();
 	}
 
-	@Override
-	public Iterator<Feature> iterator() {
-		return features.iterator();
+	public void addAll(Collection<Feature> features) {
+		initFeatures();
+		this.features.addAll(features);
 	}
 
 	@Override
@@ -38,17 +30,21 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof FeatureCollection))
-			return false;
-		FeatureCollection features1 = (FeatureCollection)o;
-		return features.equals(features1.features);
+		if (this == o) return true;
+		if (!(o instanceof FeatureCollection)) return false;
+		if (!super.equals(o)) return false;
+
+		FeatureCollection that = (FeatureCollection) o;
+
+		return features != null ? features.equals(that.features) : that.features == null;
+
 	}
 
 	@Override
 	public int hashCode() {
-		return features.hashCode();
+		int result = super.hashCode();
+		result = 31 * result + (features != null ? features.hashCode() : 0);
+		return result;
 	}
 
 	@Override

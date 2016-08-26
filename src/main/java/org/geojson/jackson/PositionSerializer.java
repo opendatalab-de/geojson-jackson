@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.geojson.LngLatAlt;
+import org.geojson.Position;
 
 import java.io.IOException;
 
-public class LngLatAltSerializer extends JsonSerializer<LngLatAlt> {
+public class PositionSerializer extends JsonSerializer<Position> {
 
 	public static final long POW10[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
@@ -44,18 +44,29 @@ public class LngLatAltSerializer extends JsonSerializer<LngLatAlt> {
 	}
 
 	@Override
-	public void serialize(LngLatAlt value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
-			JsonProcessingException {
+	public void serialize(Position value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 		jgen.writeStartArray();
-		jgen.writeNumber(fastDoubleToString(value.getLongitude(), 9));
-		jgen.writeNumber(fastDoubleToString(value.getLatitude(), 9));
-		if (value.hasAltitude()) {
-			jgen.writeNumber(value.getAltitude());
-
-			for(double d : value.getAdditionalElements()) {
-				jgen.writeNumber(d);
-			}
-		}
+		jgen.writeNumber(fastDoubleToString(value.longitude, 9));
+		jgen.writeNumber(fastDoubleToString(value.latitude, 9));
+		serializeOptionalParams(value, jgen);
 		jgen.writeEndArray();
+	}
+
+	private void serializeOptionalParams(Position value, JsonGenerator jgen) throws IOException {
+		if (!hasAltitude(value)) return;
+		jgen.writeNumber(value.altitude);
+		serializeAdditionalElements(value.additionalElements, jgen);
+	}
+
+	private void serializeAdditionalElements(Double[] value, JsonGenerator jgen) throws IOException {
+		if (value == null) return;
+		for(Double d : value) {
+			jgen.writeNumber(d);
+		}
+	}
+
+	private boolean hasAltitude(Position value) {
+		if (value == null) return false;
+		return value.altitude != null;
 	}
 }
