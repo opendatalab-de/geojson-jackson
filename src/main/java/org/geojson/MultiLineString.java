@@ -2,12 +2,12 @@ package org.geojson;
 
 import java.util.List;
 
-public class MultiLineString extends Geometry<List<LngLatAlt>> {
+public class MultiLineString extends Geometry<List<Position>> {
 
 	public MultiLineString() {
 	}
 
-	public MultiLineString(List<LngLatAlt> line) {
+	public MultiLineString(List<Position> line) {
 		add(line);
 	}
 

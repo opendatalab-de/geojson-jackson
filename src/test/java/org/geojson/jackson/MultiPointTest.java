@@ -1,8 +1,9 @@
 package org.geojson.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.geojson.LngLatAlt;
 import org.geojson.MultiPoint;
+import org.geojson.Position;
+import org.geojson.PositionFactory;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class MultiPointTest {
 
 	@Test
 	public void itShouldSerializeMultiPoint() throws Exception {
-		MultiPoint multiPoint = new MultiPoint(new LngLatAlt(100, 0), new LngLatAlt(101, 1));
+		MultiPoint multiPoint = new MultiPoint(PositionFactory.create(100, 0), PositionFactory.create(101, 1));
 		assertEquals("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
 				mapper.writeValueAsString(multiPoint));
 	}
@@ -27,8 +28,8 @@ public class MultiPointTest {
 				.readValue("{\"type\":\"MultiPoint\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}",
 				MultiPoint.class);
 		assertNotNull(multiPoint);
-		List<LngLatAlt> coordinates = multiPoint.getCoordinates();
-		PointTest.assertLngLatAlt(100, 0, Double.NaN, coordinates.get(0));
-		PointTest.assertLngLatAlt(101, 1, Double.NaN, coordinates.get(1));
+		List<Position> coordinates = multiPoint.coordinates;
+		PointTest.assertLngLatAlt(100, 0, coordinates.get(0));
+		PointTest.assertLngLatAlt(101, 1, coordinates.get(1));
 	}
 }

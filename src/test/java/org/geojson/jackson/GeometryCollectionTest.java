@@ -13,8 +13,8 @@ public class GeometryCollectionTest {
 	@Test
 	public void itShouldSerialize() throws Exception {
 		GeometryCollection gc = new GeometryCollection();
-		gc.add(new Point(100, 0));
-		gc.add(new LineString(new LngLatAlt(101, 0), new LngLatAlt(102, 1)));
+		gc.add(PointFactory.create(100, 0));
+		gc.add(new LineString(PositionFactory.create(101, 0), PositionFactory.create(102, 1)));
 		assertEquals("{\"type\":\"GeometryCollection\","
 						+ "\"geometries\":[{\"type\":\"Point\",\"coordinates\":[100.0,0.0]},"
 						+ "{\"type\":\"LineString\",\"coordinates\":[[101.0,0.0],[102.0,1.0]]}]}",
@@ -52,6 +52,6 @@ public class GeometryCollectionTest {
 								+ "}",
 						FeatureCollection.class);
 		assertNotNull(collection);
-		assertTrue(collection.getFeatures().get(0).getGeometry() instanceof GeometryCollection);
+		assertTrue(collection.features.get(0).geometry instanceof GeometryCollection);
 	}
 }

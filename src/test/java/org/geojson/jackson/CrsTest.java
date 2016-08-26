@@ -19,16 +19,16 @@ public class CrsTest {
 				+ "{ \"href\": \"http://example.com/crs/42\", \"type\": \"proj4\" }},"
 				+ "\"type\":\"Point\",\"coordinates\":[100.0,5.0]}", GeoJsonObject.class);
 		assertNotNull(value);
-		assertEquals(CrsType.link, value.getCrs().getType());
+		assertEquals(CrsType.link, value.crs.type);
 	}
 
 	@Test
 	public void itShouldSerializeCrsWithLink() throws Exception {
 		Point point = new Point();
 		Crs crs = new Crs();
-		crs.setType(CrsType.link);
-		point.setCrs(crs);
+		crs.type = CrsType.link;
+		point.crs = crs;
 		String value = mapper.writeValueAsString(point);
-		assertEquals("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":{}}}", value);
+		assertEquals("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":null}}", value);
 	}
 }

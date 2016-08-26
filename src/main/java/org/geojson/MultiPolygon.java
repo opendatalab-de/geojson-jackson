@@ -2,7 +2,7 @@ package org.geojson;
 
 import java.util.List;
 
-public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
+public class MultiPolygon extends Geometry<List<List<Position>>> {
 
 	public MultiPolygon() {
 	}
@@ -12,7 +12,7 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 	}
 
 	public MultiPolygon add(Polygon polygon) {
-		coordinates.add(polygon.getCoordinates());
+		add(polygon.coordinates);
 		return this;
 	}
 

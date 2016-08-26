@@ -5,7 +5,7 @@ public class LineString extends MultiPoint {
 	public LineString() {
 	}
 
-	public LineString(LngLatAlt... points) {
+	public LineString(Position... points) {
 		super(points);
 	}
 
