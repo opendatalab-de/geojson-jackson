@@ -19,4 +19,3 @@ public class LngLatAltDeserializerTest {
         Assert.assertTrue(lngLatAlt.equals(lngLatAlt));
     }
 }
-s
