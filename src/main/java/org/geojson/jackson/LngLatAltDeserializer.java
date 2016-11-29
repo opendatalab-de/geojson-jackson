@@ -68,9 +68,11 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
 					return jp.getDoubleValue();
 				case VALUE_NUMBER_INT:
 					return jp.getLongValue();
+				case VALUE_STRING:
+					return jp.getValueAsDouble();
 				default:
 					throw ctxt.mappingException("Unexpected token (" + token.name()
-							+ ") when binding data into LngLatAlt ");
+							+ ") when binding data into LngLatAlt");
 			}
 		}
 	}
