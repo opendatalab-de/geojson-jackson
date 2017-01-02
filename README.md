@@ -19,9 +19,9 @@ If you what to read any GeoJson file read the value as GeoJsonObject and then te
 
 ```java
 GeoJsonObject object = new ObjectMapper().readValue(inputStream, GeoJsonObject.class);
-if (object instanceOf Polygon) {
+if (object instanceof Polygon) {
 	...
-} else if (object instanceOf Feature) {
+} else if (object instanceof Feature) {
 	...
 }
 ```
