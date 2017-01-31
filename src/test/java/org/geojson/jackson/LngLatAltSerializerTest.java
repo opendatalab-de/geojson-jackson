@@ -1,13 +1,20 @@
 package org.geojson.jackson;
 
+import org.geojson.LngLatAlt;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LngLatAltSerializerTest {
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-	@Test
-	public void itShouldFastSerialize() throws Exception {
-		String value = LngLatAltSerializer.fastDoubleToString(49.43245, 9);
-		Assert.assertEquals("49.43245", value);
-	}
+public class LngLatAltSerializerTest
+{
+
+    @Test
+    public void testSerialization() throws Exception
+    {
+        LngLatAlt position = new LngLatAlt(49.43245, 52.42345, 120.34626);
+        String correctJson = "[49.43245,52.42345,120.34626]";
+        String producedJson = new ObjectMapper().writeValueAsString(position);
+        Assert.assertEquals(correctJson, producedJson);
+    }
 }
