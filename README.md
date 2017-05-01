@@ -15,7 +15,7 @@ FeatureCollection featureCollection =
 	new ObjectMapper().readValue(inputStream, FeatureCollection.class);
 ```
 
-If you what to read any GeoJson file read the value as GeoJsonObject and then test for the contents via instanceOf:
+If you want to read any GeoJson file read the value as GeoJsonObject and then test for the contents via instanceOf:
 
 ```java
 GeoJsonObject object = new ObjectMapper().readValue(inputStream, GeoJsonObject.class);
