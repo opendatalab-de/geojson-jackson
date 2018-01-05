@@ -1,5 +1,6 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -23,13 +24,23 @@ public abstract class GeoJsonObject implements Serializable
 	private double[] bbox;
 
 	/**
+	 * Starting bounds to guarantee that the various {@code calculateBounds}
+	 * methods will work out correctly.
+	 */
+	protected static final double[] STARTING_BOUNDS =
+		{
+			Double.MAX_VALUE, Double.MAX_VALUE,
+			Double.MIN_VALUE, Double.MIN_VALUE
+		} ;
+
+	/**
 	 * Calculates the bounding box around a list of points.
 	 * @param points a list of points that compose a polygon
 	 * @return a bounding box
 	 */
 	public static double[] calculateBounds( List<LngLatAlt> points )
 	{
-		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		double[] box = STARTING_BOUNDS.clone() ;
 		for( LngLatAlt point : points )
 		{
 			double longitude = point.getLongitude() ;
@@ -56,6 +67,7 @@ public abstract class GeoJsonObject implements Serializable
 	@SuppressWarnings("UnusedReturnValue")
 	public static double[] accumulateBounds( double[] currentBox, double[] newData )
 	{
+		if( currentBox == null ) currentBox = STARTING_BOUNDS.clone() ;
 		if( Double.compare( newData[0], currentBox[0] ) < 0 )
 			currentBox[0] = newData[0] ;
 		if( Double.compare( newData[1], currentBox[1] ) < 0 )
@@ -75,10 +87,12 @@ public abstract class GeoJsonObject implements Serializable
 		this.crs = crs;
 	}
 
+	@JsonIgnore
 	public double[] getBbox() {
 		return bbox;
 	}
 
+	@JsonIgnore
 	public void setBbox(double[] bbox) {
 		this.bbox = bbox;
 	}

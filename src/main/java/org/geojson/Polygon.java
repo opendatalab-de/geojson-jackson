@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Polygon extends Geometry<List<LngLatAlt>>
 {
 
-	public Polygon() {
-	}
+	public Polygon() {}
 
 	public Polygon(List<LngLatAlt> polygon) {
 		add(polygon);
@@ -19,8 +18,10 @@ public class Polygon extends Geometry<List<LngLatAlt>>
 		add(Arrays.asList(polygon));
 	}
 
-	public void setExteriorRing(List<LngLatAlt> points) {
-		coordinates.add(0, points);
+	public void setExteriorRing(List<LngLatAlt> points)
+	{
+		coordinates.add(0, points) ;
+		this.calculateBounds() ;
 	}
 
 	@JsonIgnore

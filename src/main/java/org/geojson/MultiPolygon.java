@@ -11,22 +11,22 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 		add(polygon);
 	}
 
-	public MultiPolygon add(Polygon polygon) {
+	public MultiPolygon add(Polygon polygon)
+	{
 		coordinates.add(polygon.getCoordinates());
+		this.setBbox( accumulateBounds(
+				this.getBbox(), polygon.calculateBounds() )) ;
 		return this;
 	}
 
 	@Override
 	public double[] calculateBounds()
 	{
-		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		double[] box = STARTING_BOUNDS.clone() ;
 		for( List<List<LngLatAlt>> polygroup : this.getCoordinates() )
 		{
 			for( List<LngLatAlt> poly : polygroup )
-			{
-				double[] polybox = GeoJsonObject.calculateBounds( poly ) ;
-				GeoJsonObject.accumulateBounds( box, polybox ) ;
-			}
+				accumulateBounds( box, calculateBounds(poly) ) ;
 		}
 		this.setBbox(box) ;
 		return this.getBbox() ;

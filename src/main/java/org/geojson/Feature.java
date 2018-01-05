@@ -34,8 +34,10 @@ public class Feature extends GeoJsonObject {
 		return geometry;
 	}
 
-	public void setGeometry(GeoJsonObject geometry) {
-		this.geometry = geometry;
+	public void setGeometry( GeoJsonObject geometry )
+	{
+		this.geometry = geometry ;
+		this.calculateBounds() ;
 	}
 
 	public String getId() {

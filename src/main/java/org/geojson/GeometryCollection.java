@@ -16,12 +16,9 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 	@Override
 	public double[] calculateBounds()
 	{
-		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		double[] box = STARTING_BOUNDS.clone() ;
 		for( GeoJsonObject geo : this.getGeometries() )
-		{
-			double[] geobox = geo.calculateBounds() ;
-			GeoJsonObject.accumulateBounds( box, geobox ) ;
-		}
+			GeoJsonObject.accumulateBounds( box, geo.calculateBounds() ) ;
 		this.setBbox(box) ;
 		return this.getBbox() ;
 	}
@@ -30,8 +27,10 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		return geometries;
 	}
 
-	public void setGeometries(List<GeoJsonObject> geometries) {
-		this.geometries = geometries;
+	public void setGeometries( List<GeoJsonObject> geometries )
+	{
+		this.geometries = geometries ;
+		this.calculateBounds() ;
 	}
 
 	@Override
@@ -39,9 +38,12 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		return geometries.iterator();
 	}
 
-	public GeometryCollection add(GeoJsonObject geometry) {
-		geometries.add(geometry);
-		return this;
+	public GeometryCollection add( GeoJsonObject geometry )
+	{
+		geometries.add(geometry) ;
+		this.setBbox( accumulateBounds(
+				this.getBbox(), geometry.calculateBounds() ) ) ;
+		return this ;
 	}
 
 	@Override

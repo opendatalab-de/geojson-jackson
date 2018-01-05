@@ -13,21 +13,34 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 		return features;
 	}
 
-	public void setFeatures(List<Feature> features) {
-		this.features = features;
+	public void setFeatures( List<Feature> features )
+	{
+		this.features = features ;
+		this.calculateBounds() ;
 	}
 
 	@Override
 	public double[] calculateBounds()
-	{ return null ; }
-
-	public FeatureCollection add(Feature feature) {
-		features.add(feature);
-		return this;
+	{
+		double[] box = STARTING_BOUNDS.clone() ;
+		for( Feature f : this.getFeatures() )
+			accumulateBounds( box, f.calculateBounds() ) ;
+		this.setBbox(box) ;
+		return this.getBbox() ;
 	}
 
-	public void addAll(Collection<Feature> features) {
-		this.features.addAll(features);
+	public FeatureCollection add( Feature feature )
+	{
+		features.add(feature) ;
+		this.setBbox( accumulateBounds(
+				this.getBbox(), feature.calculateBounds() )) ;
+		return this ;
+	}
+
+	public void addAll( Collection<Feature> features )
+	{
+		this.features.addAll(features) ;
+		this.calculateBounds() ;
 	}
 
 	@Override

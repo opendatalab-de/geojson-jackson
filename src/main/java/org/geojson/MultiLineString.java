@@ -13,7 +13,13 @@ public class MultiLineString extends Geometry<List<LngLatAlt>> {
 
 	@Override
 	public double[] calculateBounds()
-	{ return null ; }
+	{
+		double[] box = STARTING_BOUNDS.clone() ;
+		for( List<LngLatAlt> shape : this.getCoordinates() )
+			accumulateBounds( box, calculateBounds(shape) ) ;
+		this.setBbox(box) ;
+		return this.getBbox() ;
+	}
 
 	@Override
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {

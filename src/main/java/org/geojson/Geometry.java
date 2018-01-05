@@ -10,14 +10,17 @@ public abstract class Geometry<T> extends GeoJsonObject {
 	public Geometry() {
 	}
 
-	public Geometry(T... elements) {
-		for (T coordinate : elements) {
-			coordinates.add(coordinate);
-		}
+	public Geometry( T... elements )
+	{
+		for( T coordinate : elements )
+			coordinates.add(coordinate) ;
+		this.calculateBounds() ;
 	}
 
-	public Geometry<T> add(T elements) {
-		coordinates.add(elements);
+	public Geometry<T> add( T elements )
+	{
+		coordinates.add(elements) ;
+		this.calculateBounds() ;
 		return this;
 	}
 
@@ -25,8 +28,10 @@ public abstract class Geometry<T> extends GeoJsonObject {
 		return coordinates;
 	}
 
-	public void setCoordinates(List<T> coordinates) {
-		this.coordinates = coordinates;
+	public void setCoordinates( List<T> coordinates )
+	{
+		this.coordinates = coordinates ;
+		this.calculateBounds() ;
 	}
 
 	@SuppressWarnings("rawtypes")
