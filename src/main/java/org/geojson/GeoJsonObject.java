@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 @JsonTypeInfo(property = "type", use = Id.NAME)
@@ -21,11 +20,18 @@ import java.util.List;
 public abstract class GeoJsonObject implements Serializable
 {
 	private Crs crs;
-	private double[] bbox;
+
+	/**
+	 * A bounding box around the object, as currently configured.
+	 * This is initialized as {@code null} and dynamically updated each time the
+	 * object's geometry changes.
+	 */
+	private double[] bbox = null ;
 
 	/**
 	 * Starting bounds to guarantee that the various {@code calculateBounds}
 	 * methods will work out correctly.
+	 * @since issue #45
 	 */
 	protected static final double[] STARTING_BOUNDS =
 		{
@@ -37,6 +43,7 @@ public abstract class GeoJsonObject implements Serializable
 	 * Calculates the bounding box around a list of points.
 	 * @param points a list of points that compose a polygon
 	 * @return a bounding box
+	 * @since issue #45
 	 */
 	public static double[] calculateBounds( List<LngLatAlt> points )
 	{
@@ -63,10 +70,12 @@ public abstract class GeoJsonObject implements Serializable
 	 * @param currentBox the current bounding box
 	 * @param newData a new data point
 	 * @return the updated bounding box
+	 * @since issue #45
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static double[] accumulateBounds( double[] currentBox, double[] newData )
 	{
+		if( newData == null ) return currentBox ; // nothing to add
 		if( currentBox == null ) currentBox = STARTING_BOUNDS.clone() ;
 		if( Double.compare( newData[0], currentBox[0] ) < 0 )
 			currentBox[0] = newData[0] ;
@@ -88,20 +97,22 @@ public abstract class GeoJsonObject implements Serializable
 	}
 
 	@JsonIgnore
-	public double[] getBbox() {
-		return bbox;
-	}
+	public double[] getBbox()
+	{ return bbox ; }
 
+	/**
+	 * Sets an explicit bounding box.
+	 * @param bbox the explicit bounding box
+	 */
 	@JsonIgnore
-	public void setBbox(double[] bbox) {
-		this.bbox = bbox;
-	}
+	protected void setBbox( double[] bbox )
+	{ this.bbox = bbox ; }
 
 	/**
 	 * Calculates a bounding box around the object, and writes its coordinates
 	 * back to the internal bounding box.
 	 * @return the new bounding box (as from {@link #getBbox}.
-	 * @since issue #45 (zerobandwidth-net issue #1)
+	 * @since issue #45
 	 */
 	public abstract double[] calculateBounds() ;
 

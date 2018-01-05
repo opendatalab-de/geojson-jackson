@@ -9,7 +9,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Exercises {@link LineString}.
- * @since issue #45 (zerobandwidth-net issue #1)
+ * @since issue #45
  */
 @RunWith(JUnit4.class)
 public class LineStringTest
@@ -26,6 +26,7 @@ public class LineStringTest
 				new LngLatAlt( 0.0d, -1.0d )
 			);
 		double[] arExpected = { -7.0d, -12.0d, 15.0d, 20.0d } ;
+		assertArrayEquals( arExpected, ls.getBbox(), TOLERANCE ) ;
 		assertArrayEquals( arExpected, ls.calculateBounds(), TOLERANCE ) ;
 	}
 }

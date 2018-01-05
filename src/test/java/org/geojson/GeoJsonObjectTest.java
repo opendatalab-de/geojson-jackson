@@ -1,9 +1,9 @@
 package org.geojson;
 
 /**
- * Exercises concrete methods provided by {@link GeoJsonObject}, and also
- * provides constants for other tests.
- * @since issue #45 (zerobandwidth-net issue #1)
+ * Provides constants used in other test classes. Eventually, this could also
+ * exercise the concrete methods provided by {@link GeoJsonObject} itself.
+ * @since issue #45
  */
 public class GeoJsonObjectTest
 {

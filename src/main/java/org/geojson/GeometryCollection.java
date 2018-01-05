@@ -8,20 +8,15 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
+	public GeometryCollection() {}
+
 	/**
-	 * {@inheritDoc}
-	 * Note that this method will cause all subsidiary objects to update their
-	 * bounding boxes as well.
+	 * Constructs the collection with an initial list of geometries.
+	 * @param geos the initial list of geometries to be added
+	 * @since issue #45
 	 */
-	@Override
-	public double[] calculateBounds()
-	{
-		double[] box = STARTING_BOUNDS.clone() ;
-		for( GeoJsonObject geo : this.getGeometries() )
-			GeoJsonObject.accumulateBounds( box, geo.calculateBounds() ) ;
-		this.setBbox(box) ;
-		return this.getBbox() ;
-	}
+	public GeometryCollection( List<GeoJsonObject> geos )
+	{ this.setGeometries(geos) ; }
 
 	public List<GeoJsonObject> getGeometries() {
 		return geometries;
@@ -29,7 +24,8 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 
 	public void setGeometries( List<GeoJsonObject> geometries )
 	{
-		this.geometries = geometries ;
+		if( geometries == null ) this.geometries.clear() ;
+		else this.geometries = geometries ;
 		this.calculateBounds() ;
 	}
 
@@ -40,10 +36,26 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 
 	public GeometryCollection add( GeoJsonObject geometry )
 	{
+		if( geometry == null ) return this ; // trivially
 		geometries.add(geometry) ;
 		this.setBbox( accumulateBounds(
 				this.getBbox(), geometry.calculateBounds() ) ) ;
 		return this ;
+	}
+
+	@Override
+	public double[] calculateBounds()
+	{
+		if( geometries.isEmpty() )
+			this.setBbox(null) ;
+		else
+		{
+			double[] box = STARTING_BOUNDS.clone() ;
+			for( GeoJsonObject geo : this.getGeometries() )
+				GeoJsonObject.accumulateBounds( box, geo.getBbox() ) ;
+			this.setBbox(box) ;
+		}
+		return this.getBbox() ;
 	}
 
 	@Override

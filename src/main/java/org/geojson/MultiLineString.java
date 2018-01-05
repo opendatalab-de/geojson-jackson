@@ -7,17 +7,21 @@ public class MultiLineString extends Geometry<List<LngLatAlt>> {
 	public MultiLineString() {
 	}
 
-	public MultiLineString(List<LngLatAlt> line) {
-		add(line);
-	}
+	public MultiLineString( List<LngLatAlt> line )
+	{ this.add(line) ; }
 
 	@Override
 	public double[] calculateBounds()
 	{
-		double[] box = STARTING_BOUNDS.clone() ;
-		for( List<LngLatAlt> shape : this.getCoordinates() )
-			accumulateBounds( box, calculateBounds(shape) ) ;
-		this.setBbox(box) ;
+		if( this.getCoordinates().isEmpty() )
+			this.setBbox(null) ;
+		else
+		{
+			double[] box = STARTING_BOUNDS.clone() ;
+			for( List<LngLatAlt> shape : this.getCoordinates() )
+				accumulateBounds( box, calculateBounds(shape) ) ;
+			this.setBbox(box) ;
+		}
 		return this.getBbox() ;
 	}
 

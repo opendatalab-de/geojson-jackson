@@ -2,13 +2,12 @@ package org.geojson;
 
 public class Point extends GeoJsonObject {
 
-	private LngLatAlt coordinates;
+	private LngLatAlt coordinates = null ;
 
 	public Point() {}
 
-	public Point(LngLatAlt coordinates) {
-		this.coordinates = coordinates;
-	}
+	public Point(LngLatAlt coordinates)
+	{ this.setCoordinates(coordinates) ; }
 
 	public Point(double longitude, double latitude)
 	{ this.setCoordinates( new LngLatAlt(longitude, latitude) ) ; }
@@ -25,13 +24,18 @@ public class Point extends GeoJsonObject {
 	@Override
 	public double[] calculateBounds()
 	{
-		this.setBbox( new double[]
+		if( this.coordinates == null )
+			this.setBbox(null) ;
+		else
+		{
+			this.setBbox( new double[]
 			{
 				coordinates.getLongitude(),
 				coordinates.getLatitude(),
 				coordinates.getLongitude(),
 				coordinates.getLatitude()
 			});
+		}
 		return this.getBbox() ;
 	}
 
@@ -39,7 +43,7 @@ public class Point extends GeoJsonObject {
 		return coordinates;
 	}
 
-	public void setCoordinates(LngLatAlt coordinates)
+	public void setCoordinates( LngLatAlt coordinates )
 	{
 		this.coordinates = coordinates ;
 		this.calculateBounds() ;

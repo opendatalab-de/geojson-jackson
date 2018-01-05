@@ -12,7 +12,7 @@ public class MultiPoint extends Geometry<LngLatAlt> {
 	@Override
 	public double[] calculateBounds()
 	{
-		this.setBbox( GeoJsonObject.calculateBounds( this.getCoordinates() )) ;
+		this.setBbox( calculateBounds( this.getCoordinates() )) ;
 		return this.getBbox() ;
 	}
 

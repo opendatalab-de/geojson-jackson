@@ -1,9 +1,6 @@
 package org.geojson;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class FeatureCollection extends GeoJsonObject implements Iterable<Feature> {
 
@@ -13,32 +10,56 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 		return features;
 	}
 
+	/**
+	 * Sets a new list of features for the collection.
+	 * Implies a recalculation of the bounding box around the collection.
+	 * @param features the new list of features
+	 */
 	public void setFeatures( List<Feature> features )
 	{
-		this.features = features ;
+		if( features == null ) this.features.clear() ;
+		else this.features = features ;
 		this.calculateBounds() ;
 	}
 
 	@Override
 	public double[] calculateBounds()
 	{
-		double[] box = STARTING_BOUNDS.clone() ;
-		for( Feature f : this.getFeatures() )
-			accumulateBounds( box, f.calculateBounds() ) ;
-		this.setBbox(box) ;
+		if( this.features.isEmpty() )
+			this.setBbox(null) ;
+		else
+		{
+			double[] box = STARTING_BOUNDS.clone() ;
+			for( Feature f : this.getFeatures() )
+				accumulateBounds( box, f.getBbox() ) ;
+			this.setBbox(box) ;
+		}
 		return this.getBbox() ;
 	}
 
+	/**
+	 * Adds a feature to the collection.
+	 * Implies a recalculation of the bounding box around the collection.
+	 * @param feature the feature to be added
+	 * @return (fluid)
+	 */
 	public FeatureCollection add( Feature feature )
 	{
+		if( feature == null ) return this ; // trivially
 		features.add(feature) ;
 		this.setBbox( accumulateBounds(
 				this.getBbox(), feature.calculateBounds() )) ;
 		return this ;
 	}
 
+	/**
+	 * Adds a collection of features to this collection.
+	 * Implies a recalculation of the bounding box around the collection.
+	 * @param features the features to be added
+	 */
 	public void addAll( Collection<Feature> features )
 	{
+		if( features == null || features.isEmpty() ) return ; // trivially
 		this.features.addAll(features) ;
 		this.calculateBounds() ;
 	}

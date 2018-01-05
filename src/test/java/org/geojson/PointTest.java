@@ -8,7 +8,7 @@ import static org.geojson.GeoJsonObjectTest.TOLERANCE ;
 
 /**
  * Exercises {@link Point}.
- * @since issue #45 (zerobandwidth-net issue #1)
+ * @since issue #45
  */
 @RunWith(JUnit4.class)
 public class PointTest
@@ -19,6 +19,7 @@ public class PointTest
 	{
 		Point p = new Point( 5.0d, 10.0d ) ;
 		double[] arExpected = { 5.0d, 10.0d, 5.0d, 10.0d } ;
+		assertArrayEquals( arExpected, p.getBbox(), TOLERANCE ) ;
 		assertArrayEquals( arExpected, p.calculateBounds(), TOLERANCE ) ;
 	}
 }

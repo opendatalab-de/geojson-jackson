@@ -9,7 +9,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Exercises {@link MultiPolygon}.
- * @since issue #45 (zerobandwidth-net issue #1)
+ * @since issue #45
  */
 @RunWith(JUnit4.class)
 public class MultiPolygonTest
@@ -28,6 +28,7 @@ public class MultiPolygonTest
 				new LngLatAlt( 10.0d, 5.0d ), new LngLatAlt( 6.0d, -11.0d )
 			));
 		double[] arExpected = { -4.0d, -11.0d, 10.0d, 8.0d } ;
+		assertArrayEquals( arExpected, mp.getBbox(), TOLERANCE ) ;
 		assertArrayEquals( arExpected, mp.calculateBounds(), TOLERANCE ) ;
 	}
 }

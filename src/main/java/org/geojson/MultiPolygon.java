@@ -13,22 +13,27 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 
 	public MultiPolygon add(Polygon polygon)
 	{
+		if( polygon == null ) return this ; // trivially
 		coordinates.add(polygon.getCoordinates());
-		this.setBbox( accumulateBounds(
-				this.getBbox(), polygon.calculateBounds() )) ;
+		this.setBbox( accumulateBounds( this.getBbox(), polygon.getBbox() )) ;
 		return this;
 	}
 
 	@Override
 	public double[] calculateBounds()
 	{
-		double[] box = STARTING_BOUNDS.clone() ;
-		for( List<List<LngLatAlt>> polygroup : this.getCoordinates() )
+		if( this.coordinates.isEmpty() )
+			this.setBbox(null) ;
+		else
 		{
-			for( List<LngLatAlt> poly : polygroup )
-				accumulateBounds( box, calculateBounds(poly) ) ;
+			double[] box = STARTING_BOUNDS.clone() ;
+			for( List<List<LngLatAlt>> polygroup : this.getCoordinates() )
+			{
+				for( List<LngLatAlt> poly : polygroup )
+					accumulateBounds( box, calculateBounds(poly) ) ;
+			}
+			this.setBbox(box) ;
 		}
-		this.setBbox(box) ;
 		return this.getBbox() ;
 	}
 
