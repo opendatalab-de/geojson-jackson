@@ -8,6 +8,24 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
+	/**
+	 * {@inheritDoc}
+	 * Note that this method will cause all subsidiary objects to update their
+	 * bounding boxes as well.
+	 */
+	@Override
+	public double[] calculateBounds()
+	{
+		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		for( GeoJsonObject geo : this.getGeometries() )
+		{
+			double[] geobox = geo.calculateBounds() ;
+			GeoJsonObject.accumulateBounds( box, geobox ) ;
+		}
+		this.setBbox(box) ;
+		return this.getBbox() ;
+	}
+
 	public List<GeoJsonObject> getGeometries() {
 		return geometries;
 	}

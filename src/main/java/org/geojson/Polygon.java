@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Polygon extends Geometry<List<LngLatAlt>> {
+public class Polygon extends Geometry<List<LngLatAlt>>
+{
 
 	public Polygon() {
 	}
@@ -51,7 +52,14 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 
 	private void assertExteriorRing() {
 		if (coordinates.isEmpty())
-			throw new RuntimeException("No exterior ring definied");
+			throw new RuntimeException("No exterior ring defined.");
+	}
+
+	@Override
+	public double[] calculateBounds()
+	{
+		this.setBbox( calculateBounds( this.getExteriorRing() ) ) ;
+		return this.getBbox() ;
 	}
 
 	@Override

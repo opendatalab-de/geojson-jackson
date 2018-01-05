@@ -17,6 +17,10 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 		this.features = features;
 	}
 
+	@Override
+	public double[] calculateBounds()
+	{ return null ; }
+
 	public FeatureCollection add(Feature feature) {
 		features.add(feature);
 		return this;

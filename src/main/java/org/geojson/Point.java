@@ -4,8 +4,7 @@ public class Point extends GeoJsonObject {
 
 	private LngLatAlt coordinates;
 
-	public Point() {
-	}
+	public Point() {}
 
 	public Point(LngLatAlt coordinates) {
 		this.coordinates = coordinates;
@@ -21,6 +20,19 @@ public class Point extends GeoJsonObject {
 
 	public Point(double longitude, double latitude, double altitude, double... additionalElements) {
 		coordinates = new LngLatAlt(longitude, latitude, altitude, additionalElements);
+	}
+
+	@Override
+	public double[] calculateBounds()
+	{
+		this.setBbox( new double[]
+			{
+				coordinates.getLongitude(),
+				coordinates.getLatitude(),
+				coordinates.getLongitude(),
+				coordinates.getLatitude()
+			});
+		return this.getBbox() ;
 	}
 
 	public LngLatAlt getCoordinates() {

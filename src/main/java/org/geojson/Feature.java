@@ -47,6 +47,13 @@ public class Feature extends GeoJsonObject {
 	}
 
 	@Override
+	public double[] calculateBounds()
+	{
+		this.setBbox( this.getGeometry().calculateBounds() ) ;
+		return this.getBbox() ;
+	}
+
+	@Override
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 		return geoJsonObjectVisitor.visit(this);
 	}

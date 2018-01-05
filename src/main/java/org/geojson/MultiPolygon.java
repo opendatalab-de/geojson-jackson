@@ -17,6 +17,22 @@ public class MultiPolygon extends Geometry<List<List<LngLatAlt>>> {
 	}
 
 	@Override
+	public double[] calculateBounds()
+	{
+		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		for( List<List<LngLatAlt>> polygroup : this.getCoordinates() )
+		{
+			for( List<LngLatAlt> poly : polygroup )
+			{
+				double[] polybox = GeoJsonObject.calculateBounds( poly ) ;
+				GeoJsonObject.accumulateBounds( box, polybox ) ;
+			}
+		}
+		this.setBbox(box) ;
+		return this.getBbox() ;
+	}
+
+	@Override
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 		return geoJsonObjectVisitor.visit(this);
 	}

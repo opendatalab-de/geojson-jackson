@@ -12,6 +12,10 @@ public class MultiLineString extends Geometry<List<LngLatAlt>> {
 	}
 
 	@Override
+	public double[] calculateBounds()
+	{ return null ; }
+
+	@Override
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 		return geoJsonObjectVisitor.visit(this);
 	}

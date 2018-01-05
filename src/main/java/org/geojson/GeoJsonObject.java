@@ -9,16 +9,63 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 @JsonTypeInfo(property = "type", use = Id.NAME)
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
 		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class),
                 @Type(GeometryCollection.class) })
 @JsonInclude(Include.NON_NULL)
-public abstract class GeoJsonObject implements Serializable {
-
+public abstract class GeoJsonObject implements Serializable
+{
 	private Crs crs;
 	private double[] bbox;
+
+	/**
+	 * Calculates the bounding box around a list of points.
+	 * @param points a list of points that compose a polygon
+	 * @return a bounding box
+	 */
+	public static double[] calculateBounds( List<LngLatAlt> points )
+	{
+		double[] box = { 0.0d, 0.0d, 0.0d, 0.0d } ;
+		for( LngLatAlt point : points )
+		{
+			double longitude = point.getLongitude() ;
+			double latitude = point.getLatitude() ;
+			if( Double.compare( longitude, box[0] ) < 0 )
+				box[0] = longitude ;
+			if( Double.compare( latitude, box[1] ) < 0 )
+				box[1] = latitude ;
+			if( Double.compare( longitude, box[2] ) > 0 )
+				box[2] = longitude ;
+			if( Double.compare( latitude, box[3] ) > 0 )
+				box[3] = latitude ;
+		}
+		return box ;
+	}
+
+	/**
+	 * Given a "current" bounding box, recalculates that box to account for an
+	 * additional data point.
+	 * @param currentBox the current bounding box
+	 * @param newData a new data point
+	 * @return the updated bounding box
+	 */
+	@SuppressWarnings("UnusedReturnValue")
+	public static double[] accumulateBounds( double[] currentBox, double[] newData )
+	{
+		if( Double.compare( newData[0], currentBox[0] ) < 0 )
+			currentBox[0] = newData[0] ;
+		if( Double.compare( newData[1], currentBox[1] ) < 0 )
+			currentBox[1] = newData[1] ;
+		if( Double.compare( newData[2], currentBox[2] ) > 0 )
+			currentBox[2] = newData[2] ;
+		if( Double.compare( newData[3], currentBox[3] ) > 0 )
+			currentBox[3] = newData[3] ;
+		return currentBox ;
+	}
 
 	public Crs getCrs() {
 		return crs;
@@ -36,6 +83,13 @@ public abstract class GeoJsonObject implements Serializable {
 		this.bbox = bbox;
 	}
 
+	/**
+	 * Calculates a bounding box around the object, and writes its coordinates
+	 * back to the internal bounding box.
+	 * @return the new bounding box (as from {@link #getBbox}.
+	 * @since issue #45 (zerobandwidth-net issue #1)
+	 */
+	public abstract double[] calculateBounds() ;
 
 	public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
 
