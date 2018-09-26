@@ -53,7 +53,7 @@ You can find the library in the Maven Central Repository.
 <dependency>
  <groupId>de.grundid.opendatalab</groupId>
  <artifactId>geojson-jackson</artifactId>
- <version>1.8</version>
+ <version>1.8.1</version>
 </dependency>
 ```
 		
