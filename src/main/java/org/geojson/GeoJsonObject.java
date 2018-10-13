@@ -1,5 +1,6 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -8,7 +9,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @JsonTypeInfo(property = "type", use = Id.NAME)
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
@@ -16,6 +21,24 @@ import java.util.Arrays;
                 @Type(GeometryCollection.class) })
 @JsonInclude(Include.NON_NULL)
 public abstract class GeoJsonObject implements Serializable {
+  static final String[] RESERVED_KEYS = new String[]{"crs", "bbox"};
+
+  private Map<String, Object> foreignMembers = new HashMap<String, Object>();
+
+  @JsonAnyGetter
+  public Map<String, Object> getForeignMembers() {
+    return foreignMembers;
+  }
+
+  public void addForeignMember(String key, Map<String, Object> value) {
+    if (getReservedKeys().contains(key.toLowerCase()))
+      throw new IllegalArgumentException("Invalid Foreign Member key " + key);
+    foreignMembers.put(key, value);
+  }
+
+  protected List<String> getReservedKeys() {
+    return Arrays.asList(RESERVED_KEYS);
+  }
 
 	private Crs crs;
 	private double[] bbox;
