@@ -1,10 +1,19 @@
 package org.geojson;
 
+import static org.geojson.ArrayUtils.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJsonObject> {
+	private static final String[] RESERVED_KEYS = append(GeoJsonObject.RESERVED_KEYS, "geometries");
+
+	@Override
+	protected List<String> getReservedKeys() {
+		return Arrays.asList(RESERVED_KEYS);
+	}
 
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 

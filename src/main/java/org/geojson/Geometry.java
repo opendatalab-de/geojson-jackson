@@ -1,9 +1,18 @@
 package org.geojson;
 
+import static org.geojson.ArrayUtils.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Geometry<T> extends GeoJsonObject {
+	private static final String[] RESERVED_KEYS = append(GeoJsonObject.RESERVED_KEYS, "coordinates");
+
+	@Override
+	protected List<String> getReservedKeys() {
+		return Arrays.asList(RESERVED_KEYS);
+	}
 
 	protected List<T> coordinates = new ArrayList<T>();
 
