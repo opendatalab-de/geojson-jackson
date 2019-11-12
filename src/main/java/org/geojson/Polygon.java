@@ -5,21 +5,23 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Polygon extends Geometry<List<LngLatAlt>> {
+public class Polygon extends Geometry<List<LngLatAlt>>
+{
 
-	public Polygon() {
-	}
+	public Polygon() {}
 
-	public Polygon(List<LngLatAlt> polygon) {
-		add(polygon);
-	}
+	public Polygon(List<LngLatAlt> polygon)
+	{ this.add(polygon) ; }
 
-	public Polygon(LngLatAlt... polygon) {
-		add(Arrays.asList(polygon));
-	}
+	public Polygon(LngLatAlt... polygon)
+	{ this.add(Arrays.asList(polygon)) ; }
 
-	public void setExteriorRing(List<LngLatAlt> points) {
-		coordinates.add(0, points);
+	public void setExteriorRing(List<LngLatAlt> points)
+	{
+		if( points == null ) return ; // trivially
+		coordinates.add( 0, points ) ;
+		this.setBbox( accumulateBounds( this.getBbox(),
+				calculateBounds(points) )) ;
 	}
 
 	@JsonIgnore
@@ -44,14 +46,27 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 		coordinates.add(points);
 	}
 
-	public void addInteriorRing(LngLatAlt... points) {
-		assertExteriorRing();
-		coordinates.add(Arrays.asList(points));
+	public void addInteriorRing(LngLatAlt... points)
+	{ this.addInteriorRing( Arrays.asList(points) ) ; }
+
+	private void assertExteriorRing()
+	{
+		if (coordinates.isEmpty())
+			throw new RuntimeException("No exterior ring defined.");
 	}
 
-	private void assertExteriorRing() {
-		if (coordinates.isEmpty())
-			throw new RuntimeException("No exterior ring definied");
+	/**
+	 * {@inheritDoc}
+	 * Note that the various methods that add interior rings <i>do not</i>
+	 * assert that those rings are indeed within the bounds of the current
+	 * exterior ring. Thus the bounding box of the exterior ring might or might
+	 * not enclose all of the rings that are considered "interior".
+	 */
+	@Override
+	public double[] calculateBounds()
+	{
+		this.setBbox( calculateBounds( this.getExteriorRing() ) ) ;
+		return this.getBbox() ;
 	}
 
 	@Override

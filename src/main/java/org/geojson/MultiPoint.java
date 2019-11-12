@@ -10,6 +10,13 @@ public class MultiPoint extends Geometry<LngLatAlt> {
 	}
 
 	@Override
+	public double[] calculateBounds()
+	{
+		this.setBbox( calculateBounds( this.getCoordinates() )) ;
+		return this.getBbox() ;
+	}
+
+	@Override
 	public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 		return geoJsonObjectVisitor.visit(this);
 	}

@@ -10,7 +10,7 @@ public class Feature extends GeoJsonObject {
 	@JsonInclude(JsonInclude.Include.ALWAYS)
 	private Map<String, Object> properties = new HashMap<String, Object>();
 	@JsonInclude(JsonInclude.Include.ALWAYS)
-	private GeoJsonObject geometry;
+	private GeoJsonObject geometry = null ;
 	private String id;
 
 	public void setProperty(String key, Object value) {
@@ -26,16 +26,24 @@ public class Feature extends GeoJsonObject {
 		return properties;
 	}
 
-	public void setProperties(Map<String, Object> properties) {
-		this.properties = properties;
+	public void setProperties( Map<String,Object> properties )
+	{
+		if( properties == null ) this.properties.clear() ;
+		else this.properties = properties ;
 	}
 
-	public GeoJsonObject getGeometry() {
-		return geometry;
-	}
+	public GeoJsonObject getGeometry()
+	{ return geometry ; }
 
-	public void setGeometry(GeoJsonObject geometry) {
-		this.geometry = geometry;
+	/**
+	 * Sets the geometry of the feature.
+	 * Implies recalculation of the feature's bounding box.
+	 * @param geometry the new feature geometry
+	 */
+	public void setGeometry( GeoJsonObject geometry )
+	{
+		this.geometry = geometry ;
+		this.calculateBounds() ;
 	}
 
 	public String getId() {
@@ -44,6 +52,14 @@ public class Feature extends GeoJsonObject {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public double[] calculateBounds()
+	{
+		if( this.geometry == null ) this.setBbox(null) ;
+		else this.setBbox( this.getGeometry().getBbox() ) ;
+		return this.getBbox() ;
 	}
 
 	@Override

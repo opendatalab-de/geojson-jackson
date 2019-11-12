@@ -2,33 +2,51 @@ package org.geojson;
 
 public class Point extends GeoJsonObject {
 
-	private LngLatAlt coordinates;
+	private LngLatAlt coordinates = null ;
 
-	public Point() {
+	public Point() {}
+
+	public Point(LngLatAlt coordinates)
+	{ this.setCoordinates(coordinates) ; }
+
+	public Point(double longitude, double latitude)
+	{ this.setCoordinates( new LngLatAlt(longitude, latitude) ) ; }
+
+	public Point(double longitude, double latitude, double altitude)
+	{ this.setCoordinates( new LngLatAlt(longitude, latitude, altitude) ) ; }
+
+	public Point(double longitude, double latitude, double altitude, double... additionalElements)
+	{
+		this.setCoordinates(
+			new LngLatAlt( longitude, latitude, altitude, additionalElements ));
 	}
 
-	public Point(LngLatAlt coordinates) {
-		this.coordinates = coordinates;
-	}
-
-	public Point(double longitude, double latitude) {
-		coordinates = new LngLatAlt(longitude, latitude);
-	}
-
-	public Point(double longitude, double latitude, double altitude) {
-		coordinates = new LngLatAlt(longitude, latitude, altitude);
-	}
-
-	public Point(double longitude, double latitude, double altitude, double... additionalElements) {
-		coordinates = new LngLatAlt(longitude, latitude, altitude, additionalElements);
+	@Override
+	public double[] calculateBounds()
+	{
+		if( this.coordinates == null )
+			this.setBbox(null) ;
+		else
+		{
+			this.setBbox( new double[]
+			{
+				coordinates.getLongitude(),
+				coordinates.getLatitude(),
+				coordinates.getLongitude(),
+				coordinates.getLatitude()
+			});
+		}
+		return this.getBbox() ;
 	}
 
 	public LngLatAlt getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(LngLatAlt coordinates) {
-		this.coordinates = coordinates;
+	public void setCoordinates( LngLatAlt coordinates )
+	{
+		this.coordinates = coordinates ;
+		this.calculateBounds() ;
 	}
 
 	@Override

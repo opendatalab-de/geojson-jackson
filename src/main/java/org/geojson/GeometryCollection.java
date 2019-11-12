@@ -8,12 +8,25 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 
 	private List<GeoJsonObject> geometries = new ArrayList<GeoJsonObject>();
 
+	public GeometryCollection() {}
+
+	/**
+	 * Constructs the collection with an initial list of geometries.
+	 * @param geos the initial list of geometries to be added
+	 * @since issue #45
+	 */
+	public GeometryCollection( List<GeoJsonObject> geos )
+	{ this.setGeometries(geos) ; }
+
 	public List<GeoJsonObject> getGeometries() {
 		return geometries;
 	}
 
-	public void setGeometries(List<GeoJsonObject> geometries) {
-		this.geometries = geometries;
+	public void setGeometries( List<GeoJsonObject> geometries )
+	{
+		if( geometries == null ) this.geometries.clear() ;
+		else this.geometries = geometries ;
+		this.calculateBounds() ;
 	}
 
 	@Override
@@ -21,9 +34,28 @@ public class GeometryCollection extends GeoJsonObject implements Iterable<GeoJso
 		return geometries.iterator();
 	}
 
-	public GeometryCollection add(GeoJsonObject geometry) {
-		geometries.add(geometry);
-		return this;
+	public GeometryCollection add( GeoJsonObject geometry )
+	{
+		if( geometry == null ) return this ; // trivially
+		geometries.add(geometry) ;
+		this.setBbox( accumulateBounds(
+				this.getBbox(), geometry.calculateBounds() ) ) ;
+		return this ;
+	}
+
+	@Override
+	public double[] calculateBounds()
+	{
+		if( geometries.isEmpty() )
+			this.setBbox(null) ;
+		else
+		{
+			double[] box = STARTING_BOUNDS.clone() ;
+			for( GeoJsonObject geo : this.getGeometries() )
+				GeoJsonObject.accumulateBounds( box, geo.getBbox() ) ;
+			this.setBbox(box) ;
+		}
+		return this.getBbox() ;
 	}
 
 	@Override

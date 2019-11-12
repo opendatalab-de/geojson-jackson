@@ -86,7 +86,8 @@ public class LngLatAlt implements Serializable{
 		return additionalElements;
 	}
 
-	public void setAdditionalElements(double... additionalElements) {
+	public void setAdditionalElements( double... additionalElements )
+	{
 		if (additionalElements != null) {
 			this.additionalElements = additionalElements;
 		} else {
@@ -135,25 +136,26 @@ public class LngLatAlt implements Serializable{
 	}
 
 	@Override
-	public String toString() {
-		String s =  "LngLatAlt{" + "longitude=" + longitude + ", latitude=" + latitude + ", altitude=" + altitude;
-
-		if (hasAdditionalElements()) {
-			s += ", additionalElements=[";
-
-			String suffix = "";
-			for (Double element : additionalElements) {
-				if (element != null) {
-					s += suffix + element;
-					suffix = ", ";
-				}
+	public String toString()
+	{ // (#45) Switched to using StringBuilder to avoid concatenation in loop.
+		StringBuilder sb = new StringBuilder() ;
+		sb.append( "LngLatAlt{longitude=" ).append( longitude )
+			.append( ", latitude=" ).append( latitude )
+			.append( ", altitude=" ).append( altitude )
+			;
+		if( this.hasAdditionalElements() )
+		{
+			sb.append( ", additionalElements=[" ) ;
+			String sPrefix = "" ;
+			for( Double element : this.additionalElements )
+			{
+				sb.append( sPrefix ).append( element ) ;
+				sPrefix = ", " ;
 			}
-			s += ']';
+			sb.append( "]" ) ;
 		}
-
-		s += '}';
-
-		return s;
+		sb.append( "}" ) ;
+		return sb.toString() ;
 	}
 
 	private void checkAltitudeAndAdditionalElements() {

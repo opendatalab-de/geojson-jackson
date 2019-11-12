@@ -12,6 +12,10 @@ public class GeoJsonObjectTest {
 	private class TestGeoJsonObject extends GeoJsonObject {
 
 		@Override
+		public double[] calculateBounds()
+		{ return this.getBbox() ; }
+
+		@Override
 		public <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor) {
 			throw new RuntimeException("not implemented");
 		}
