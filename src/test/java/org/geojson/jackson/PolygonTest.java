@@ -5,6 +5,8 @@ import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -44,6 +46,22 @@ public class PolygonTest {
 		assertListEquals(MockData.EXTERNAL, polygon.getExteriorRing());
 		assertListEquals(MockData.INTERNAL, polygon.getInteriorRing(0));
 		assertListEquals(MockData.INTERNAL, polygon.getInteriorRings().get(0));
+	}
+
+	@Test
+	public void itShouldSetExteriorRing() throws Exception {
+		Polygon polygon = new Polygon();
+		polygon.setExteriorRing(MockData.EXTERNAL);
+		assertEquals(MockData.EXTERNAL, polygon.getExteriorRing());
+	}
+
+	@Test
+	public void itShouldReplaceExteriorRing() throws Exception {
+		Polygon polygon = new Polygon(Arrays.asList(
+					new LngLatAlt(0, 0), new LngLatAlt(1, 0), new LngLatAlt(1, 1), new LngLatAlt(0, 1), new LngLatAlt(0, 0)));
+		polygon.setExteriorRing(MockData.EXTERNAL);
+		assertEquals(MockData.EXTERNAL, polygon.getExteriorRing());
+		assertEquals(0, polygon.getInteriorRings().size());
 	}
 
 	private void assertListEquals(List<LngLatAlt> expectedList, List<LngLatAlt> actualList) {

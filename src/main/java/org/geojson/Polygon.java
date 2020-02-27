@@ -19,7 +19,11 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 	}
 
 	public void setExteriorRing(List<LngLatAlt> points) {
-		coordinates.add(0, points);
+		if (coordinates.isEmpty()) {
+			coordinates.add(0, points);
+		} else {
+			coordinates.set(0, points);
+		}
 	}
 
 	@JsonIgnore
