@@ -19,7 +19,7 @@ public abstract class GeoJsonObject implements Serializable {
 
 	private Crs crs;
 	private double[] bbox;
-
+	private String name = "";
 	public Crs getCrs() {
 		return crs;
 	}
@@ -36,6 +36,20 @@ public abstract class GeoJsonObject implements Serializable {
 		this.bbox = bbox;
 	}
 
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
 
