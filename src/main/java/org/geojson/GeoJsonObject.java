@@ -1,5 +1,9 @@
 package org.geojson;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -7,19 +11,16 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 @JsonTypeInfo(property = "type", use = Id.NAME)
 @JsonSubTypes({ @Type(Feature.class), @Type(Polygon.class), @Type(MultiPolygon.class), @Type(FeatureCollection.class),
 		@Type(Point.class), @Type(MultiPoint.class), @Type(MultiLineString.class), @Type(LineString.class),
                 @Type(GeometryCollection.class) })
 @JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class GeoJsonObject implements Serializable {
 
 	private Crs crs;
-	private double[] bbox;
-	private String name = "";
+	private double[] bbox;	
 	public Crs getCrs() {
 		return crs;
 	}
@@ -34,21 +35,6 @@ public abstract class GeoJsonObject implements Serializable {
 
 	public void setBbox(double[] bbox) {
 		this.bbox = bbox;
-	}
-
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public abstract <T> T accept(GeoJsonObjectVisitor<T> geoJsonObjectVisitor);
