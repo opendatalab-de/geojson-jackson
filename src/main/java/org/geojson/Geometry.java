@@ -1,31 +1,21 @@
 package org.geojson;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Geometry<T> extends GeoJsonObject {
 
-	protected List<T> coordinates = new ArrayList<T>();
+	protected T coordinates;
 
 	public Geometry() {
 	}
 
-	public Geometry(T... elements) {
-		for (T coordinate : elements) {
-			coordinates.add(coordinate);
-		}
+	public Geometry(T coordinates) {
+		this.coordinates = coordinates;
 	}
 
-	public Geometry<T> add(T elements) {
-		coordinates.add(elements);
-		return this;
-	}
-
-	public List<T> getCoordinates() {
+	public T getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(List<T> coordinates) {
+	public void setCoordinates(T coordinates) {
 		this.coordinates = coordinates;
 	}
 

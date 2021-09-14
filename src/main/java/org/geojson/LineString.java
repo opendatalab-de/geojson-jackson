@@ -3,6 +3,7 @@ package org.geojson;
 public class LineString extends MultiPoint {
 
 	public LineString() {
+		super();
 	}
 
 	public LineString(LngLatAlt... points) {
