@@ -56,4 +56,22 @@ public abstract class Geometry<T> extends GeoJsonObject {
 	public String toString() {
 		return "Geometry{" + "coordinates=" + coordinates + "} " + super.toString();
 	}
+
+    /**
+     * @param points List of points
+     * @return Return String with the following format : "lon lat, lon lat, ..."
+     */
+    protected String toWKT(List<LngLatAlt> points) {
+        String wkt = "";
+        boolean first = true;
+        for (LngLatAlt coords : points) {
+            if (first) {
+                first = false;
+            } else {
+                wkt += ",";
+            }
+            wkt += coords.getLongitude() + " " + coords.getLatitude();
+        }
+        return wkt;
+    }
 }
