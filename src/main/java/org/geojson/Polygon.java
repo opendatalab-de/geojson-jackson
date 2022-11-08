@@ -3,8 +3,11 @@ package org.geojson;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
+@JsonAutoDetect(getterVisibility = Visibility.PUBLIC_ONLY, setterVisibility = Visibility.PUBLIC_ONLY)
 public class Polygon extends Geometry<List<LngLatAlt>> {
 
 	public Polygon() {

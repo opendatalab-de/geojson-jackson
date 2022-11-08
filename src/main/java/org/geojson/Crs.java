@@ -2,10 +2,14 @@ package org.geojson;
 
 import org.geojson.jackson.CrsType;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+@JsonAutoDetect(getterVisibility = Visibility.PUBLIC_ONLY, setterVisibility = Visibility.PUBLIC_ONLY)
 public class Crs implements Serializable{
 
 	private CrsType type = CrsType.name;

@@ -1,5 +1,9 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+@JsonAutoDetect(getterVisibility = Visibility.PUBLIC_ONLY, setterVisibility = Visibility.PUBLIC_ONLY)
 public class Point extends GeoJsonObject {
 
 	private LngLatAlt coordinates;
