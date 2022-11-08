@@ -3,6 +3,10 @@ package org.geojson;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+@JsonAutoDetect(getterVisibility = Visibility.PUBLIC_ONLY, setterVisibility = Visibility.PUBLIC_ONLY)
 public abstract class Geometry<T> extends GeoJsonObject {
 
 	protected List<T> coordinates = new ArrayList<T>();
