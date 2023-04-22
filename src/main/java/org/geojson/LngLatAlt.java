@@ -11,7 +11,7 @@ import java.lang.Override;
 
 @JsonDeserialize(using = LngLatAltDeserializer.class)
 @JsonSerialize(using = LngLatAltSerializer.class)
-public class LngLatAlt implements Serializable{
+public class LngLatAlt implements Serializable, Coordinate{
 
 	private double longitude;
 	private double latitude;
