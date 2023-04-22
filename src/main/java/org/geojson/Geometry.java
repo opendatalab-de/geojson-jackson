@@ -3,7 +3,7 @@ package org.geojson;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Geometry<T> extends GeoJsonObject {
+public abstract class Geometry<T extends List<? extends Coordinate>> extends GeoJsonObject {
 
 	protected List<T> coordinates = new ArrayList<T>();
 

@@ -7,10 +7,11 @@ import org.geojson.jackson.LngLatAltSerializer;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.lang.Override;
 
 @JsonDeserialize(using = LngLatAltDeserializer.class)
 @JsonSerialize(using = LngLatAltSerializer.class)
-public class LngLatAlt implements Serializable{
+public class LngLatAlt implements Serializable, Coordinate{
 
 	private double longitude;
 	private double latitude;
@@ -57,6 +58,7 @@ public class LngLatAlt implements Serializable{
 		return additionalElements.length > 0;
 	}
 
+	@Override
 	public double getLongitude() {
 		return longitude;
 	}
@@ -65,6 +67,7 @@ public class LngLatAlt implements Serializable{
 		this.longitude = longitude;
 	}
 
+	@Override
 	public double getLatitude() {
 		return latitude;
 	}
