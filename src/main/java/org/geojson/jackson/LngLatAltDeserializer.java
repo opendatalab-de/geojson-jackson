@@ -1,23 +1,25 @@
 package org.geojson.jackson;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.geojson.LngLatAlt;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.geojson.LngLatAlt;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
 
     @Override
     public LngLatAlt deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-        if (jp.isExpectedStartArrayToken()) {
-            return deserializeArray(jp, ctxt);
+        if (!jp.isExpectedStartArrayToken()) {
+            ctxt.handleUnexpectedToken(LngLatAlt.class, jp);
         }
-        throw ctxt.mappingException(LngLatAlt.class);
+
+        return deserializeArray(jp, ctxt);
     }
 
     protected LngLatAlt deserializeArray(JsonParser jp, DeserializationContext ctxt) throws IOException {
@@ -46,24 +48,24 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
             if (optional)
                 return Double.NaN;
             else
-                throw ctxt.mappingException("Unexpected end-of-input when binding data into LngLatAlt");
+                ctxt.handleUnexpectedToken(LngLatAlt.class, token, jp, "Unexpected end-of-input when binding data into LngLatAlt");
         } else {
             switch (token) {
-                case END_ARRAY:
-                    if (optional)
-                        return Double.NaN;
-                    else
-                        throw ctxt.mappingException("Unexpected end-of-input when binding data into LngLatAlt");
-                case VALUE_NUMBER_FLOAT:
-                    return jp.getDoubleValue();
-                case VALUE_NUMBER_INT:
-                    return jp.getLongValue();
-                case VALUE_STRING:
-                    return jp.getValueAsDouble();
-                default:
-                    throw ctxt.mappingException(
-                            "Unexpected token (" + token.name() + ") when binding data into LngLatAlt");
+            case END_ARRAY:
+                if (optional)
+                    return Double.NaN;
+                else
+                    ctxt.handleUnexpectedToken(LngLatAlt.class, token, jp, "Unexpected end-of-input when binding data into LngLatAlt");
+            case VALUE_NUMBER_FLOAT:
+                return jp.getDoubleValue();
+            case VALUE_NUMBER_INT:
+                return jp.getLongValue();
+            case VALUE_STRING:
+                return jp.getValueAsDouble();
+            default:
+                ctxt.handleUnexpectedToken(LngLatAlt.class, token, jp, "Unexpected token (" + token.name() + ") when binding data into LngLatAlt");
             }
         }
+        return 0;
     }
 }

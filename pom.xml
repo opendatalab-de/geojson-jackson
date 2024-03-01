@@ -7,21 +7,14 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>de.grundid.opendatalab</groupId>
+	<groupId>nl.42</groupId>
 	<artifactId>geojson-jackson</artifactId>
 	<version>1.15-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 
 	<name>GeoJson POJOs for Jackson </name>
-	<url>https://github.com/opendatalab-de/geojson-jackson</url>
 	<description>A collection of Java POJOs for GeoJson</description>
-
-	<scm>
-		<connection>scm:git:git://github.com/opendatalab-de/geojson-jackson.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/opendatalab-de/geojson-jackson.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
 
 	<licenses>
 		<license>
@@ -32,6 +25,7 @@
 	</licenses>
 
 	<developers>
+		<!-- Original author -->
 		<developer>
 			<name>Adrian Stabiszewski</name>
 			<email>as@nfctools.org</email>
@@ -41,36 +35,28 @@
 	</developers>
 
 	<properties>
-		<java-version>1.6</java-version>
-		<jackson-version>2.10.0</jackson-version>
+		<java-version>8</java-version>
+		<jackson-version>2.16.1</jackson-version>
+		<junit-version>4.13.2</junit-version>
+		<mockito-version>1.10.19</mockito-version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>1.10.19</version>
+			<version>${mockito-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

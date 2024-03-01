@@ -1,3 +1,5 @@
+### Note: This is a continuation of opendatalab-de/geojson-jackson
+
 GeoJson POJOs for Jackson
 =========================
 
@@ -47,13 +49,4 @@ String json= new ObjectMapper().writeValueAsString(featureCollection);
 Maven Central
 -------------
 
-You can find the library in the Maven Central Repository.
-
-```xml
-<dependency>
- <groupId>de.grundid.opendatalab</groupId>
- <artifactId>geojson-jackson</artifactId>
- <version>1.14</version>
-</dependency>
-```
-		
+Currently this fork is not hosted on maven central. Release can be downloaded as a jar file.
