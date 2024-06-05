@@ -17,7 +17,7 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
         if (jp.isExpectedStartArrayToken()) {
             return deserializeArray(jp, ctxt);
         }
-        throw ctxt.mappingException(LngLatAlt.class);
+        throw ctxt.wrongTokenException(jp,LngLatAlt.class, JsonToken.START_ARRAY, "expected JSON Array");
     }
 
     protected LngLatAlt deserializeArray(JsonParser jp, DeserializationContext ctxt) throws IOException {
@@ -46,14 +46,14 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
             if (optional)
                 return Double.NaN;
             else
-                throw ctxt.mappingException("Unexpected end-of-input when binding data into LngLatAlt");
+                throw ctxt.instantiationException(LngLatAltDeserializer.class, "Unexpected end-of-input when binding data into LngLatAlt");
         } else {
             switch (token) {
                 case END_ARRAY:
                     if (optional)
                         return Double.NaN;
                     else
-                        throw ctxt.mappingException("Unexpected end-of-input when binding data into LngLatAlt");
+                        throw ctxt.instantiationException( this.getClass(), "Unexpected end-of-input when binding data into LngLatAlt");
                 case VALUE_NUMBER_FLOAT:
                     return jp.getDoubleValue();
                 case VALUE_NUMBER_INT:
@@ -61,8 +61,7 @@ public class LngLatAltDeserializer extends JsonDeserializer<LngLatAlt> {
                 case VALUE_STRING:
                     return jp.getValueAsDouble();
                 default:
-                    throw ctxt.mappingException(
-                            "Unexpected token (" + token.name() + ") when binding data into LngLatAlt");
+                    throw ctxt.instantiationException(this.getClass(), "Unexpected token (" + token.name() + ") when binding data into LngLatAlt");
             }
         }
     }
