@@ -3,8 +3,11 @@ package org.geojson;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public abstract class Geometry<T> extends GeoJsonObject {
 
+	@JsonFormat(without = JsonFormat.Feature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED)
 	protected List<T> coordinates = new ArrayList<T>();
 
 	public Geometry() {
