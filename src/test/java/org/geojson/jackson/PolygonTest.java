@@ -1,12 +1,13 @@
 package org.geojson.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -21,6 +22,19 @@ public class PolygonTest {
 		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
 				+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]]}",
 				mapper.writeValueAsString(polygon));
+	}
+
+	@Test
+	public void itShouldSerializeIgnoringWriteSingleElemArraysUnwrapped() throws Exception {
+		ObjectMapper mapper = new ObjectMapper()
+			.enable(SerializationFeature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED)
+		;
+
+		Polygon polygon = new Polygon(MockData.EXTERNAL);
+		String actual = mapper.writeValueAsString(polygon);
+		assertEquals("{\"type\":\"Polygon\",\"coordinates\":"
+			+ "[[[100.0,0.0],[101.0,0.0],[101.0,1.0],[100.0,1.0],[100.0,0.0]]]}",
+			actual);
 	}
 
 	@Test
