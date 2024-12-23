@@ -9,7 +9,7 @@
 
 	<groupId>nl.42</groupId>
 	<artifactId>geojson-jackson</artifactId>
-	<version>1.15.1</version>
+	<version>1.15.2</version>
 	<packaging>jar</packaging>
 
 
