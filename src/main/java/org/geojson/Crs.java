@@ -1,14 +1,18 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.geojson.jackson.CrsType;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Crs implements Serializable{
+@JsonPropertyOrder(value = {"type", "properties"})
+public class Crs implements Serializable {
 
-	private CrsType type = CrsType.name;
+    private static final long serialVersionUID = 1125574632681208135L;
+    //
+    private CrsType type = CrsType.name;
 	private Map<String, Object> properties = new HashMap<String, Object>();
 
 	public CrsType getType() {

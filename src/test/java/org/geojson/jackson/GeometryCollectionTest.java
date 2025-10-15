@@ -1,8 +1,8 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.*;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.Assert.*;
 

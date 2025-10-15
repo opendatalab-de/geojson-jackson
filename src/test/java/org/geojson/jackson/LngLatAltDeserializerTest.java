@@ -1,9 +1,9 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.junit.Assert;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Created by babbleshack on 27/11/16.
@@ -16,6 +16,6 @@ public class LngLatAltDeserializerTest {
         lngLatAltJson.replace("10.0", "\"10.0\"");
         lngLatAltJson.replace("15.0", "\"15.0\"");
         LngLatAlt lngLatAlt1 = new ObjectMapper().readValue(lngLatAltJson, LngLatAlt.class);
-        Assert.assertTrue(lngLatAlt.equals(lngLatAlt));
+        Assert.assertTrue(lngLatAlt1.equals(lngLatAlt));
     }
 }

@@ -3,8 +3,7 @@ package org.geojson.jackson;
 import org.geojson.LngLatAlt;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class LngLatAltSerializerTest
 {

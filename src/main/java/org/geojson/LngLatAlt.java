@@ -1,9 +1,9 @@
 package org.geojson;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.geojson.jackson.LngLatAltDeserializer;
 import org.geojson.jackson.LngLatAltSerializer;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.Arrays;
