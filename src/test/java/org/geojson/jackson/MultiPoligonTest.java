@@ -1,10 +1,10 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.geojson.MultiPolygon;
 import org.geojson.Polygon;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.Assert.assertEquals;
 

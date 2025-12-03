@@ -1,9 +1,9 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.geojson.MultiLineString;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
 

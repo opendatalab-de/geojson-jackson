@@ -1,17 +1,15 @@
 package org.geojson.jackson;
 
-import java.io.IOException;
-
 import org.geojson.LngLatAlt;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-public class LngLatAltSerializer extends JsonSerializer<LngLatAlt> {
+public class LngLatAltSerializer extends ValueSerializer<LngLatAlt> {
 
     @Override
-    public void serialize(LngLatAlt value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+    public void serialize(LngLatAlt value, JsonGenerator jgen, SerializationContext provider) throws JacksonException {
         jgen.writeStartArray();
         jgen.writeNumber(value.getLongitude());
         jgen.writeNumber(value.getLatitude());

@@ -1,11 +1,11 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.junit.Test;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -74,14 +74,14 @@ public class PointTest {
 	}
 
 	@Test
-	public void itShouldSerializeAPointWithAdditionalAttributes() throws JsonProcessingException {
+	public void itShouldSerializeAPointWithAdditionalAttributes() throws JacksonException {
 		Point point = new Point(100, 0, 256, 345d, 678d);
 		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0,345.0,678.0]}",
 				mapper.writeValueAsString(point));
 	}
 
 	@Test
-	public void itShouldSerializeAPointWithAdditionalAttributesAndNull() throws JsonProcessingException {
+	public void itShouldSerializeAPointWithAdditionalAttributesAndNull() throws JacksonException {
 		Point point = new Point(100, 0, 256, 345d, 678d);
 		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0,345.0,678.0]}",
 				mapper.writeValueAsString(point));

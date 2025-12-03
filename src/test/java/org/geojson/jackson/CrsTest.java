@@ -1,10 +1,10 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.Crs;
 import org.geojson.GeoJsonObject;
 import org.geojson.Point;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

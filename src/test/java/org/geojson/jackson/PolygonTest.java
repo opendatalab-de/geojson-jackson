@@ -1,12 +1,11 @@
 package org.geojson.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
