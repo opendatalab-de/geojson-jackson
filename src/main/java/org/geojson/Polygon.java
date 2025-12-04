@@ -67,4 +67,21 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 	public String toString() {
 		return "Polygon{} " + super.toString();
 	}
+
+    public String toWKT() {
+        List<LngLatAlt> exteriorRing = this.getExteriorRing();
+        if (exteriorRing != null) {
+            String wkt = "POLYGON(";
+            wkt += "(" + toWKT(exteriorRing) + ")";
+            List<List<LngLatAlt>> holes = this.getInteriorRings();
+            if (holes != null && holes.size() > 0) {
+                for (List<LngLatAlt> hole : holes) {
+                    wkt += ",(" + toWKT(hole) + ")";
+                }
+            }
+            wkt += ")";
+            return wkt;
+        }
+        return "";
+    }
 }
