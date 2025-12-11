@@ -91,8 +91,9 @@
 				<version>3.3.0</version>
 				<inherited>true</inherited>
 				<configuration>
+					<useReleaseProfile>true</useReleaseProfile>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<arguments>-Pcentral -Dgpg.passphrase=</arguments>
+					<arguments>-Dgpg.passphrase=</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
