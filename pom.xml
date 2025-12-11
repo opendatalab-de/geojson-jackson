@@ -9,7 +9,7 @@
 
 	<groupId>de.grundid.opendatalab</groupId>
 	<artifactId>geojson-jackson</artifactId>
-	<version>1.18-SNAPSHOT</version>
+	<version>1.16-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 
@@ -91,9 +91,8 @@
 				<version>3.3.0</version>
 				<inherited>true</inherited>
 				<configuration>
-					<useReleaseProfile>true</useReleaseProfile>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<arguments>-Dgpg.passphrase=</arguments>
+					<arguments>-Pcentral -Dgpg.passphrase=</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
