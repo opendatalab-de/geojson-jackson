@@ -42,7 +42,7 @@
 
 	<properties>
 		<java-version>1.8</java-version>
-		<jackson-version>3.0.0</jackson-version>
+		<jackson-version>3.0.3</jackson-version>
 		<jackson-annotations-version>2.20</jackson-annotations-version>
 	</properties>
 
@@ -139,21 +139,34 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>3.2.8</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-						<phase>package</phase>
-					</execution>
-				</executions>
-
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+    	<profile>
+        	<id>release</id>
+        	<activation>
+            	<activeByDefault>false</activeByDefault>
+        	</activation>
+        	<build>
+            	<plugins>
+                	<plugin>
+                    	<groupId>org.apache.maven.plugins</groupId>
+                    	<artifactId>maven-gpg-plugin</artifactId>
+                    	<version>3.1.0</version>
+                    	<executions>
+                        	<execution>
+                            	<id>sign-artifacts</id>
+                            	<phase>verify</phase>
+                            	<goals>
+                                	<goal>sign</goal>
+	                            </goals>
+                   		     </execution>
+                    	</executions>
+                	</plugin>
+            	</plugins>
+        	</build>
+    	</profile>
+	</profiles>
 
 </project>
