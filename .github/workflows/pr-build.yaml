@@ -1,0 +1,39 @@
+name: PR Build
+
+# PR build
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-java:
+    name: "Build java library"
+    runs-on: [self-hosted, linux, X64]
+
+    steps:    
+    - name: Set up JDK 25
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: 25
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+         maven-version: 3.9.2
+
+    - name: checkout
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: '0'
+    
+    - name: Try to build Java lib
+      run: | 
+        mvn package --settings ${{ github.workspace }}/.github/workflows/settings.xml
+        ls -al ./target
+      env:
+         CI: false
+         MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+         MAVEN_GPG_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}

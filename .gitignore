@@ -5,3 +5,5 @@ target
 .settings
 *.iml
 .idea
+
+env.sh

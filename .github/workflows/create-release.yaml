@@ -1,0 +1,77 @@
+name: Create release and tag repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      RELEASE_VERSION:
+        description: "Set release version (required)"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  RELEASE_VERSION: ${{ github.event.inputs.RELEASE_VERSION }}
+
+jobs:
+  build:
+    name: "Create release and Github tag"
+    runs-on: [self-hosted, linux, X64]
+    outputs:
+      VERSION_BUILD: ${{ steps.get-version.outputs.VERSION_BUILD }}     
+    
+    steps:
+    - name: Set up JDK 25
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: 25
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+         maven-version: 3.9.2
+
+    - name: checkout
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: '0'   
+
+    - name: Set Java lib version
+      run: | 
+        echo "new version manually set to ${{ env.RELEASE_VERSION }}"
+        mvn -B build-helper:parse-version versions:set -DnewVersion=${{ env.RELEASE_VERSION }} versions:commit --settings ${{ github.workspace }}/.github/workflows/settings.xml
+
+    - name: Build Java lib
+      run: | 
+        mvn package --settings ${{ github.workspace }}/.github/workflows/settings.xml
+      env:
+         CI: false
+         MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+         MAVEN_GPG_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+
+    - name: Get tag name
+      run: |
+        echo "TAG=${{ env.RELEASE_VERSION }}" >> $GITHUB_ENV
+
+    - name: Create github release
+      run: gh release create ${{ env.TAG }} -F CHANGELOG.md ./target/*.jar ./target/*.asc
+      env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Commit generated code and changelog
+      run: |
+        git config --global user.email "code@starwit.de"
+        git config --global user.name "Starwit"
+        git add .
+        modifications=$(git status | grep "modified" || true)
+        if [ ! -z "$modifications" ]
+        then
+          echo "modifications found: $modifications"
+          git commit -m "Bumping version to ${{ env.RELEASE_VERSION }}"
+          git push
+        fi
+      env:
+         CI: false
+    
+
