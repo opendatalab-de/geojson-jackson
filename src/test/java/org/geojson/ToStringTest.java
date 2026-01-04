@@ -27,7 +27,7 @@ public class ToStringTest {
 	public void itShouldToStringPoint() throws Exception {
 		Point geometry = new Point(10, 20);
 		assertEquals(
-				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}} GeoJsonObject{}",
+				"Point{} Geometry{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=NaN}} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -35,7 +35,7 @@ public class ToStringTest {
 	public void itShouldToStringPointWithAdditionalElements() {
 		Point geometry = new Point(10, 20, 30, 40D, 50D);
 		assertEquals(
-				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
+				"Point{} Geometry{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
 				geometry.toString());
 	}
 
@@ -43,7 +43,7 @@ public class ToStringTest {
 	public void itShouldToStringPointWithAdditionalElementsAndIgnoreNulls() {
 		Point geometry = new Point(10, 20, 30, 40D, 50D);
 		assertEquals(
-				"Point{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
+				"Point{} Geometry{coordinates=LngLatAlt{longitude=10.0, latitude=20.0, altitude=30.0, additionalElements=[40.0, 50.0]}} GeoJsonObject{}",
 				geometry.toString());
 	}
 

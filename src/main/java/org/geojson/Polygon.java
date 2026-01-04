@@ -1,21 +1,23 @@
 package org.geojson;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-public class Polygon extends Geometry<List<LngLatAlt>> {
+public class Polygon extends Geometry<List<List<LngLatAlt>>> {
 
 	public Polygon() {
+		super(new ArrayList<List<LngLatAlt>>());
 	}
 
 	public Polygon(List<LngLatAlt> polygon) {
-		add(polygon);
+		super(new ArrayList<List<LngLatAlt>>(Collections.singletonList(polygon)));
 	}
 
 	public Polygon(LngLatAlt... polygon) {
-		add(Arrays.asList(polygon));
+		this(Arrays.asList(polygon));
 	}
 
 	public void setExteriorRing(List<LngLatAlt> points) {
@@ -54,8 +56,9 @@ public class Polygon extends Geometry<List<LngLatAlt>> {
 	}
 
 	private void assertExteriorRing() {
-		if (coordinates.isEmpty())
+		if (coordinates.isEmpty()) {
 			throw new RuntimeException("No exterior ring definied");
+		}
 	}
 
 	@Override

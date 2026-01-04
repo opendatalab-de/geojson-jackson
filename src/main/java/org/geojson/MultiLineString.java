@@ -1,14 +1,22 @@
 package org.geojson;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MultiLineString extends Geometry<List<LngLatAlt>> {
+public class MultiLineString extends Geometry<List<List<LngLatAlt>>> {
 
 	public MultiLineString() {
+		super(new ArrayList<List<LngLatAlt>>());
 	}
 
 	public MultiLineString(List<LngLatAlt> line) {
-		add(line);
+		super(new ArrayList<List<LngLatAlt>>(Collections.singletonList(line)));
+	}
+
+	public MultiLineString add(List<LngLatAlt> line) {
+		coordinates.add(line);
+		return this;
 	}
 
 	@Override
